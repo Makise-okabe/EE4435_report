@@ -4,6 +4,8 @@
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb,booktabs,array,graphicx,float,hyperref,xcolor}
 \usepackage{caption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
 \hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
 \newcommand{\pending}[1]{\textcolor{red!65!black}{\textbf{Pending:} #1}}
 \newcommand{\evidence}[2]{%
@@ -25,7 +27,7 @@ Second member and student ID & \pending{enter verified details}\\
 Individual contribution percentages & \pending{enter actual percentages}\\
 \end{tabular}
 \end{center}
-\noindent\textbf{Document status.} This is a working report, not the final submission. Baseline SProcess fabrication completed and structural outputs were examined. SDevice produced the first $I_D$--$V_G$ dataset at nominal $V_{DS}=0.1$ V. The quantitative device metrics and remaining simulation sweeps have not yet been extracted or verified.
+\noindent\textbf{Document status.} This is a working report, not the final submission. Baseline SProcess fabrication completed and structural outputs were examined. The first SDevice $I_D$--$V_G$ dataset at $V_{DS}=0.1$ V was exported and is now archived. The baseline subthreshold swing was extracted from eight gate-sweep points. Further voltage sweeps and the full parameter studies remain pending.
 
 \tableofcontents
 \section{Objective and methodology}
@@ -72,21 +74,73 @@ The final activation step is specified as ten seconds in the supplied process sc
 The displayed scalar \texttt{NetActive} represents net electrically active doping, with donor and acceptor signs distinguished. It is not the same quantity as free electron concentration. The TDR views provide qualitative fabrication evidence; numerical implant profiles and extracted terminal characteristics must be separately quantified before making performance claims.
 
 \subsection{Baseline SDevice results}
-The original \texttt{SDevice\_IdVg.txt} was entered in the SDevice tool. The initial preprocessing failure involved the Workbench placeholder \texttt{@vd@} appearing in a script comment; the \texttt{vd} parameter was created in Workbench without changing the provided command script. A later Workbench submission reported \texttt{gsub exits with status 0}, which confirms successful submission-management execution, \emph{not} the successful completion of the physical SDevice calculation. The earlier Workbench screenshot showed SProcess in yellow (done) and SDevice in light cyan (virtual). A subsequent submission on 21 October 2026 at 20:16:35 reported \texttt{job '2' status changed from 'pending' to 'running'} and \texttt{job 2 <sdevice> started ... "sdevice pp2\_des.cmd"}. This verifies that SDevice Node 2 was launched. The screenshot accompanying that log still showed \texttt{running}; the final solver completion state and all electrical metrics remain unverified. Next, verify a yellow/done SDevice node, inspect its log, and plot the generated $I_D$--$V_G$ data.
+The original \texttt{SDevice\_IdVg.txt} was entered in the SDevice tool. The initial preprocessing failure involved the Workbench placeholder \texttt{@vd@} appearing in a script comment; the \texttt{vd} parameter was created in Workbench without changing the provided command script. A later Workbench submission reported \texttt{gsub exits with status 0}, which confirms successful submission-management execution, \emph{not} the successful completion of the physical SDevice calculation. The earlier Workbench screenshot showed SProcess in yellow (done) and SDevice in light cyan (virtual). A subsequent submission on 21 October 2026 at 20:16:35 reported \texttt{job '2' status changed from 'pending' to 'running'} and \texttt{job 2 <sdevice> started ... "sdevice pp2\_des.cmd"}. This verifies that SDevice Node 2 was launched. Although the screenshot accompanying that submission still showed \texttt{running}, the subsequent SVisual output and numerical export confirm that the $V_{DS}=0.1$ V transfer dataset was produced. Independent confirmation of the final solver log, and of the intended current-normalization units, is still pending.
 
 \paragraph{Initial $I_D$--$V_G$ visualization at $V_{DS}=0.1$ V (21 October 2026).}
-Sentaurus Visual successfully opened the SDevice output dataset \texttt{n2\_des}. Using gate \texttt{OuterVoltage} on the horizontal axis and drain \texttt{TotalCurrent} on the vertical axis produced a transfer characteristic covering approximately $V_{GS}=-0.5$ to $1.2$ V. On the linear plot, current is near the display baseline at lower gate bias and increases monotonically at higher gate bias. A visual estimate from the screenshot at $V_{GS}=1.2$ V is of order $1.8\times 10^{-4}$ in the plotted current units; this estimate is \emph{not} a numerical extraction and is not used as a reported $I_{\mathrm{ON}}$ until the current units and definition are confirmed.
-\evidence{06_idvg_vd01_linear}{Initial SDevice transfer characteristic: drain TotalCurrent versus gate OuterVoltage at nominal $V_{DS}=0.1$ V. Source plot viewed in SVisual; original image awaits upload to the repository.}
+Sentaurus Visual successfully opened the SDevice output dataset \texttt{n2\_des}. Using gate \texttt{OuterVoltage} on the horizontal axis and drain \texttt{TotalCurrent} on the vertical axis produced a transfer characteristic covering approximately $V_{GS}=-0.5$ to $1.2$ V. On the linear plot, current is near the display baseline at lower gate bias and increases monotonically at higher gate bias. The subsequent numerical export confirms $I_D=1.7960048\times10^{-4}$ at $V_{GS}=1.2$ V (simulator-exported current units), but its normalization and the assignment's definitive $I_{\mathrm{ON}}$ bias condition must be verified before reporting it as an on-current metric.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+ width=0.90\linewidth,height=6.4cm,
+ xlabel={$V_{GS}$ (V)},ylabel={$I_D$ (exported current units)},
+ xmin=-0.5,xmax=1.2,ymin=0,ymax=0.000195,
+ grid=both,scaled y ticks=false,
+ ytick={0,0.00005,0.00010,0.00015},
+ yticklabels={$0$,$5\cdot10^{-5}$,$1\cdot10^{-4}$,$1.5\cdot10^{-4}$}
+]
+\addplot+[thick,mark=*,mark size=0.9pt]
+ table[col sep=comma,x=VGS_V,y=Id_exported]
+ {data/idvg_vds_0p1_sweep.csv};
+\end{axis}
+\end{tikzpicture}
+\caption{Baseline linear $I_D$--$V_{GS}$ transfer curve at nominal $V_{DS}=0.1$ V. The 34 plotted points come directly from the exported SDevice CSV, excluding the initial fixed-gate drain-bias ramp.}
+\label{fig:idvg_vd01_linear}
+\end{figure}
 \paragraph{Logarithmic transfer characteristic at $V_{DS}=0.1$ V.}
 A second Sentaurus Visual screenshot confirms that the same \texttt{n2\_des} gate-voltage--drain-current curve was plotted with a logarithmic Y1 axis. Over an extended subthreshold gate-bias range the measured curve is approximately linear in $\log_{10}|I_D|$ versus $V_{GS}$, as expected from approximately exponential subthreshold conduction. At larger gate bias the log-scale curve progressively flattens as the drain current rises. Multiple points at the initial $V_{GS}=-0.5$ V are present during the initial voltage-ramping sequence and must be excluded from a subthreshold-swing fit.
-\evidence{07_idvg_vd01_log}{Logarithmic $I_D$--$V_G$ transfer plot from Sentaurus Visual at nominal $V_{DS}=0.1$ V; measured current data and exact-axis screenshot are awaiting archival into the GitHub figures folder.}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{semilogyaxis}[
+ width=0.90\linewidth,height=6.4cm,
+ xlabel={$V_{GS}$ (V)},ylabel={$|I_D|$ (exported current units)},
+ xmin=-0.5,xmax=1.2,ymin=1e-17,ymax=1e-3,
+ grid=both,log basis y=10
+]
+\addplot+[thick,mark=*,mark size=0.9pt]
+ table[col sep=comma,x=VGS_V,y=Id_exported]
+ {data/idvg_vds_0p1_sweep.csv};
+\end{semilogyaxis}
+\end{tikzpicture}
+\caption{Baseline semilogarithmic $I_D$--$V_{GS}$ plot from the same SDevice export at nominal $V_{DS}=0.1$ V. The near-linear subthreshold region supports an SS fit.}
+\label{fig:idvg_vd01_log}
+\end{figure}
 The subthreshold swing should be extracted from an appropriately selected approximately linear portion of the semilogarithmic curve:
 \[
 SS=\left(\frac{d\log_{10}|I_D|}{d V_{GS}}\right)^{-1},
 \]
-expressed in mV/decade. A screenshot is inadequate to determine a reliable numerical value; use the exported simulation data.
+expressed in mV/decade. The fitted numerical dataset gives $SS=63.61$ mV/dec at nominal $V_{DS}=0.1$ V. Specifically, a least-squares fit of $\log_{10}(I_D)$ against $V_{GS}$ over the eight points from $-0.35$ to $0$ V has slope $15.720597$ decade/V and $R^2=0.999999892$. The expression above yields $1000/15.720597=63.6108$ mV/dec. The extracted fit is a nominal simulation result rather than a measurement of physical silicon.
 
-\pending{Capture and commit both original curve screenshots and export numerical $I_D$--$V_G$ data from the SDevice PLT file, verify current normalization/sign, run $V_{DS}=1.2$ V and the supplied $I_D$--$V_D$ family, and compute $V_{\mathrm{TH},0.1}$, $V_{\mathrm{TH},1.2}$, SS, $I_{\mathrm{ON}}$, $I_{\mathrm{OFF}}$ and DIBL using documented extraction conventions.}
+\begin{table}[H]
+\centering
+\caption{Directly extracted values from the baseline SDevice CSV at $V_{DS}=0.1$ V. Current normalization has not yet been independently verified.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Quantity & Value \\
+\midrule
+$V_{GS}$ sweep range (initial ramp excluded) & $-0.45$ to $1.20$ V (34 points) \\
+$I_D$ at $V_{GS}=0$ V & $1.7620327\times10^{-10}$ (exported units) \\
+$I_D$ at $V_{GS}=1.2$ V & $1.7960048\times10^{-4}$ (exported units) \\
+Subthreshold swing, $SS$ & $63.61$ mV/dec \\
+SS regression window & $-0.35$ to $0.00$ V ($n=8$) \\
+SS fit $R^2$ & $0.999999892$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+The filename \texttt{Ig\_Vg\_CSV.csv} is misleading: the export header is \texttt{drain TotalCurrent(n2\_des)}, and the gate outer voltage was selected as the plot X-axis in Sentaurus Visual. The original 45-row CSV is stored as \texttt{data/Ig\_Vg\_CSV\_original.csv}; the cleaned 34-point gate sweep is stored as \texttt{data/idvg\_vds\_0p1\_sweep.csv}. The 11 initial points at $V_{GS}=-0.5$ V, associated with the drain-bias initialization, were excluded from the plots and SS fit. The $V_{DS}=0.1$ V values here are \emph{not yet} the final assignment's $I_{\mathrm{ON}}$ or $I_{\mathrm{OFF}}$ definitions, since the specified high-drain-bias experiment and extraction conventions are still outstanding.
+
+\pending{Verify current normalization/sign and final solver status; run $V_{DS}=1.2$ V and the supplied $I_D$--$V_D$ family, and compute $V_{\mathrm{TH},0.1}$, $V_{\mathrm{TH},1.2}$, the high-$V_{DS}$ operating-point metrics, and DIBL using documented extraction conventions.}
 
 \section{Part 2: Gate length and top-silicon thickness}
 For each $T_{\mathrm{SI}}=10$ and $30$ nm, the manual specifies
