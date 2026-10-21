@@ -8,10 +8,10 @@
 \newcommand{\pending}[1]{\textcolor{red!65!black}{\textbf{Pending:} #1}}
 \newcommand{\evidence}[2]{%
  \begin{figure}[H]\centering
- \IfFileExists{figures/#1.png}{\includegraphics[width=.90\linewidth]{figures/#1.png}}{%
+ \IfFileExists{figures/#1.png}{\includegraphics[width=.83\linewidth]{figures/#1.png}}{%
  \fbox{\begin{minipage}[c][38mm][c]{.87\linewidth}\centering
- Screenshot not yet committed: \texttt{figures/#1.png}\\
- The original screenshot was reviewed in Sentaurus Visual.\end{minipage}}}
+ Screenshot not yet committed: \texttt{\detokenize{figures/#1.png}}\\
+ The original screenshot was reviewed in Sentaurus Visual.\end{minipage}}
  \caption{#2}\end{figure}}
 \title{\textbf{EE4435 Modern Transistors and Memory Devices}\\Sentaurus TCAD: Fabrication and Characterization of an SOI nMOSFET}
 \author{Du Yanzhang \and \textit{Second group member: pending}}
@@ -25,7 +25,7 @@ Second member and student ID & \pending{enter verified details}\\
 Individual contribution percentages & \pending{enter actual percentages}\\
 \end{tabular}
 \end{center}
-\noindent\textbf{Document status.} This is a working report, not the final submission. The baseline SProcess fabrication completed (yellow/done) and structural outputs were examined. The SDevice node was initially virtual, but Node 2 has now started executing based on the 21 October 2026 Workbench log. Its successful completion and electrical metrics have not yet been verified or inserted.
+\noindent\textbf{Document status.} This is a working report, not the final submission. Baseline SProcess fabrication completed and structural outputs were examined. SDevice produced the first $I_D$--$V_G$ dataset at nominal $V_{DS}=0.1$ V. The quantitative device metrics and remaining simulation sweeps have not yet been extracted or verified.
 
 \tableofcontents
 \section{Objective and methodology}
