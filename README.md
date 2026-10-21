@@ -1,9 +1,22 @@
 # EE4435 Sentaurus TCAD Report
 
-This repository contains the LaTeX source for the EE4435 SOI nMOSFET simulation assignment. Import or sync this GitHub repository into Overleaf, set `main.tex` as the root document, and compile with pdfLaTeX.
+This repository contains an Overleaf-compatible LaTeX working report for EE4435. The root document is `main.tex`; compile with **pdfLaTeX**.
 
-**Progress as of 21 October 2026:** Baseline SProcess fabrication completed and intermediate TDRs were inspected. SDevice solver completion and numerical electrical metrics have not yet been verified. The report does not invent missing results.
+## Report status (21 October 2026)
 
-`main.tex` is the source of truth. Screenshots are required in `figures/02_extension.png`, `figures/03_spacer.png`, `figures/04_annealed.png`, and `figures/05_final.png`; the LaTeX project includes compilation-safe placeholders until those image files are uploaded.
+- Part 1: baseline SProcess completed; relevant SOI nMOSFET TDR snapshots were inspected.
+- Part 1: SDevice returned a gate-voltage versus drain-current curve at nominal `VDS=0.1 V` in both linear and logarithmic displays. Exact numerical extraction is pending.
+- Parts 2--5: parameter sweeps and energy-band comparisons remain pending.
+- Baseline simulation raw `.tdr`, `.plx` and `.plt` files remain on the university CADCAM system and have not been committed.
 
-Raw Sentaurus `.tdr`, `.plx`, and `.plt` data remain on the NUS CADCAM server and are not yet included in this repository. Before final submission, add all measured plots/metrics, both group members' identification and contribution percentages, and an accurate AI-assistance disclosure.
+## Figures
+
+The report references six screenshot files in `figures/`. See `figures/README.md` for exact filenames and provenance. **The screenshot images have not yet been pushed to this repository**; until they are, LaTeX displays a missing-image placeholder and still compiles.
+
+The figure macro was corrected on 21 October to protect underscores in missing-image filenames. That fixes the reported cascading `Missing $ inserted` / `Extra }, or forgotten $` errors on lines containing `\\evidence`.
+
+The image files must be copied to the `figures/` directory with their specified filenames and committed. They will then appear automatically in the PDF on the next Overleaf recompilation.
+
+## Submission integrity
+
+Measurements and claims must be supported by Sentaurus outputs. Do not invent electrical metrics or interpret visual estimates as formally extracted results. Insert the second group member's identification, contribution percentages, and the actual AI-assistance disclosure before final submission.
