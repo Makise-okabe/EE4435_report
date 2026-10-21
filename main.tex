@@ -1,0 +1,102 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=23mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,booktabs,array,graphicx,float,hyperref,xcolor}
+\usepackage{caption}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newcommand{\pending}[1]{\textcolor{red!65!black}{\textbf{Pending:} #1}}
+\newcommand{\evidence}[2]{%
+ \begin{figure}[H]\centering
+ \IfFileExists{figures/#1.png}{\includegraphics[width=.90\linewidth]{figures/#1.png}}{%
+ \fbox{\begin{minipage}[c][38mm][c]{.87\linewidth}\centering
+ Screenshot not yet committed: \texttt{figures/#1.png}\\
+ The original screenshot was reviewed in Sentaurus Visual.\end{minipage}}}
+ \caption{#2}\end{figure}}
+\title{\textbf{EE4435 Modern Transistors and Memory Devices}\\Sentaurus TCAD: Fabrication and Characterization of an SOI nMOSFET}
+\author{Du Yanzhang \and \textit{Second group member: pending}}
+\date{Working report --- 21 October 2026}
+\begin{document}
+\maketitle
+\begin{center}
+\begin{tabular}{ll}
+Student ID (Du Yanzhang) & A0277012M\\
+Second member and student ID & \pending{enter verified details}\\
+Individual contribution percentages & \pending{enter actual percentages}\\
+\end{tabular}
+\end{center}
+\noindent\textbf{Document status.} This is a working report, not the final submission. The baseline fabrication completed and structural outputs were examined. Electrical results, quantitative parameter sweeps and band diagrams have not yet been verified or inserted.
+
+\tableofcontents
+\section{Objective and methodology}
+The objective is to construct a two-dimensional silicon-on-insulator (SOI) nMOSFET in Sentaurus Process (SProcess), characterize it in Sentaurus Device (SDevice), and investigate gate length, top-silicon thickness, activation annealing and channel doping. The required electrical quantities are threshold voltage $V_{\mathrm{TH}}$, subthreshold swing (SS), on-current $I_{\mathrm{ON}}$, off-current $I_{\mathrm{OFF}}$, and drain-induced barrier lowering (DIBL). The assignment additionally requires longitudinal and vertical energy-band diagrams.
+
+The baseline process was simulated using the supplied \texttt{SProcess\_baseline.txt} script in Sentaurus Workbench J-2014.09. The project was saved at \texttt{/class3/ay2627/a277012m/STDB/SOI\_nMOSFET} on the university server. The corresponding raw TDR and PLX files remain on that server. No device metrics are inferred merely from the visible process snapshots.
+
+\section{Part 1: Baseline fabrication and electrical calculation}
+\subsection{Baseline process conditions}
+\begin{table}[H]\centering
+\caption{Parameters transcribed from the supplied SProcess baseline script.}
+\begin{tabular}{@{}lll@{}}\toprule
+Parameter & Script variable & Nominal setting\\\midrule
+Top-silicon thickness & \texttt{TSI} & $0.030~\mu$m\\
+Gate length & \texttt{LG} & $0.250~\mu$m\\
+Channel boron concentration & \texttt{NCH} & $8.0\times10^{16}$ cm$^{-3}$\\
+Arsenic extension energy & \texttt{EEXT} & $0.5$ keV\\
+Deep S/D arsenic energy & \texttt{ESD} & $15$ keV\\
+Activation temperature & \texttt{TANNEAL} & $950\,^\circ$C\\
+Buried oxide thickness & \texttt{TBOX} & $0.150~\mu$m\\
+Sidewall spacer thickness & \texttt{TSPACER} & $0.040~\mu$m\\
+\bottomrule\end{tabular}
+\end{table}
+The final activation step is specified as ten seconds in the supplied process script. The device was created by depositing buried oxide and top silicon, forming the gate oxide and polysilicon gate, implanting arsenic extensions, forming oxide spacers, implanting deep arsenic source/drain regions, annealing, refining the device mesh and defining contacts.
+
+\subsection{Fabrication evidence and interpretation}
+\paragraph{Initial SOI stack.} The supplied script saves \texttt{soi\_00\_start\_fps.tdr} after depositing the buried oxide and top silicon. The thin-film body separates the channel from the underlying silicon substrate using an insulating oxide. This file was loaded in SVisual; because it precedes lateral patterning, it was displayed as a one-dimensional dataset rather than a two-dimensional cross-section. \pending{Record the initial-depth profile and insert evidence if needed.}
+
+\paragraph{Gate oxidation.} A dry-oxygen step of $800\,^\circ$C for $0.5$ min is used before the polysilicon gate is patterned. The snapshot \texttt{soi\_01\_gateoxide\_fps.tdr} is available. \pending{Add a clear initial gate-oxide view if required.}
+
+\evidence{02_extension}{After gate patterning and shallow arsenic extension implantation (\texttt{soi\_02\_extension\_fps.tdr}). The gate masks the channel while shallow doped regions are formed beside its edges.}
+\noindent The extension implant uses arsenic with a specified energy of $0.5$ keV followed by a $900\,^\circ$C, $0.1$ s thermal step. Extension regions are important because they bring n-type source/drain doping toward the gate while allowing the deeper implant to be laterally offset.
+
+\evidence{03_spacer}{Oxide sidewall spacer formation (\texttt{soi\_03\_spacer\_fps.tdr}). Rounded spacer geometry is visible beside the patterned gate.}
+\noindent The process deposits oxide isotropically and then etches it anisotropically. The remaining sidewall oxide shields the gate-adjacent extension regions during the later deep source/drain implantation.
+
+\evidence{04_annealed}{Deep source/drain arsenic implantation and activation anneal (\texttt{soi\_04\_annealed\_fps.tdr}); net active doping is displayed.}
+\noindent The deep implant uses arsenic at $15$ keV, followed by annealing at $950\,^\circ$C for $10$ s. In this process step, implant activation and dopant diffusion change the electrically active doping profile. The strongly doped polysilicon gate can also be visible in a net-doping display and should not be mistaken for the silicon channel.
+
+\evidence{05_final}{Final contact/mesh structure (\texttt{soi\_nmos\_fps.tdr}). This is the structural input prepared for electrical characterization.}
+\noindent In the supplied script, the \texttt{contact name=gate ... replace point} operation assigns a gate contact by replacing a point-selected polysilicon region; source, drain and substrate contacts are also defined. The final TDR therefore need not look identical to the earlier gate-poly snapshot. The final structure was inspected in Sentaurus Visual.
+
+\subsection{Current visualization and limitations}
+The displayed scalar \texttt{NetActive} represents net electrically active doping, with donor and acceptor signs distinguished. It is not the same quantity as free electron concentration. The TDR views provide qualitative fabrication evidence; numerical implant profiles and extracted terminal characteristics must be separately quantified before making performance claims.
+
+\subsection{Baseline SDevice results}
+The original \texttt{SDevice\_IdVg.txt} was entered in the SDevice tool. The initial preprocessing failure involved the Workbench placeholder \texttt{@vd@} appearing in a script comment; the \texttt{vd} parameter was created in Workbench without changing the provided command script. A later Workbench submission reported \texttt{gsub exits with status 0}, which confirms successful submission-management execution, \emph{not} by itself the successful completion of the physical SDevice calculation.
+
+\pending{Verify the SDevice node status and solver log. Insert measured $I_D$--$V_G$ at $V_{DS}=0.1$ V and $1.2$ V, the supplied $I_D$--$V_D$ family, and extracted $V_{\mathrm{TH},0.1}$, $V_{\mathrm{TH},1.2}$, SS, $I_{\mathrm{ON}}$, $I_{\mathrm{OFF}}$, and DIBL. State the extraction conventions.}
+
+\section{Part 2: Gate length and top-silicon thickness}
+For each $T_{\mathrm{SI}}=10$ and $30$ nm, the manual specifies
+\[
+L_G=(50+\delta),(80+\delta),(100+\delta),(250+\delta),(500+\delta),(1000+\delta)\;\text{nm},
+\qquad \delta=\frac{A+B}{2},
+\]
+where $A$ and $B$ are the rightmost numerical digits of the two group members' student IDs. \pending{Confirm both IDs, calculate $\delta$, run the sweep and insert five paired metric plots, shortest/longest $I_D$--$V_D$ overlays, and shortest-device potential maps at $V_{GS}=0$, $V_{DS}=1.2$ V.}
+
+\section{Part 3: Activation anneal temperature}
+At $L_G=50$ nm, $T_{\mathrm{SI}}=30$ nm and $N_{\mathrm{CH}}=10^{16}$ cm$^{-3}$, the specified anneal temperatures are $800$, $850$, $900$, $950$ and $1000\,^\circ$C. \pending{Simulate, compare metric trends, arsenic profiles and extreme-temperature $I_D$--$V_D$ curves. Explain why maximizing $I_{\mathrm{ON}}$ alone is not an adequate optimization criterion.}
+
+\section{Part 4: Channel doping}
+At $L_G=50$ nm and $T_{\mathrm{SI}}=30$ nm, use $N_{\mathrm{CH}}=(1+\delta)10^{15},(1+\delta)10^{16},(1+\delta)10^{17},(1+\delta)10^{18}$ cm$^{-3}$. \pending{Quantify metrics against logarithmic doping, compare extreme-case log-$I_D$--$V_G$ curves and channel-center vertical electron density profiles; define numerical criteria for appreciable leakage reduction and severe drive-current loss.}
+
+\section{Part 5: Conduction and valence energy bands}
+For $T_{\mathrm{SI}}=10$ and $30$ nm at $L_G=(50+\delta)$ nm, nominal remaining process parameters, $V_{GS}=0$ V and $V_{DS}=1.2$ V, the manual requires longitudinal band cutlines $1$--$2$ nm beneath the gate-oxide interface and channel-center vertical cutlines toward the buried oxide. \pending{Insert conduction/valence band plots and explain source-channel barriers, drain coupling, vertical band bending and depletion.}
+
+\section{Data integrity and pending work}
+All figures used as experimental evidence must originate from the actual Sentaurus outputs. The images in this report are either exact uploaded evidence files or visible, explicitly labelled missing-image placeholders. Numerical results remain pending until verified; no fabricated currents, extracted thresholds or error bars have been inserted.
+
+\section*{AI-assistance disclosure}
+AI assistance was used to organize the LaTeX report structure, document the demonstrated Sentaurus workflow, and draft explanatory text based on the supplied scripts and screenshots. Simulation execution, verification of quantitative results and engineering interpretation remain subject to student review. This statement should be updated to accurately reflect assistance used in the final submission.
+
+\end{document}
