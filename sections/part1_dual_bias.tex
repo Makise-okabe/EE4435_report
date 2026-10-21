@@ -1,0 +1,98 @@
+\subsection{Dual-drain-bias transfer characteristics (22 October 2026)}
+The baseline SProcess run (node \texttt{n5}) supplied the same SOI nMOSFET
+geometry to the two completed SDevice transfer simulations:
+$V_{DS}=0.1$ V (node \texttt{n3}) and $V_{DS}=1.2$ V (node \texttt{n9}).
+Both \texttt{.plt} datasets and solver logs were produced. The exported
+\texttt{Ig\_Vg\_n3\_n9.csv} was aligned by gate voltage, excluding repeated
+initial drain-ramp points at $V_{GS}=-0.5$ V. The resulting 34-point
+paired sweep is archived as
+\texttt{data/idvg\_vds\_0p1\_1p2\_comparison.csv}.
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.92\linewidth,height=6.3cm,
+xlabel={$V_{GS}$ (V)},ylabel={$I_D$ (exported current units)},
+xmin=-0.25,xmax=1.2,ymin=0,ymax=0.00062,grid=both,
+legend pos=north west,scaled y ticks=false,
+ytick={0,0.0002,0.0004,0.0006},
+yticklabels={$0$,$2\cdot10^{-4}$,$4\cdot10^{-4}$,$6\cdot10^{-4}$}
+]
+\addplot+[thick,mark=*,mark size=0.8pt]
+table[col sep=comma,x=VGS_V,y=Id_VDS0p1_exported]
+{data/idvg_vds_0p1_1p2_comparison.csv};
+\addlegendentry{$V_{DS}=0.1$ V}
+\addplot+[thick,mark=square*,mark size=0.8pt]
+table[col sep=comma,x=VGS_V,y=Id_VDS1p2_exported]
+{data/idvg_vds_0p1_1p2_comparison.csv};
+\addlegendentry{$V_{DS}=1.2$ V}
+\end{axis}
+\end{tikzpicture}
+\caption{Linear $I_D$--$V_{GS}$ overlay using the same current axis.
+The initial SVisual screenshot had separate Y1/Y2 scales; the CSV-based
+overlay removes this misleading scaling difference.}
+\label{fig:idvg_both_linear}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogyaxis}[
+width=0.92\linewidth,height=6.3cm,
+xlabel={$V_{GS}$ (V)},ylabel={$|I_D|$ (exported current units)},
+xmin=-0.25,xmax=1.2,ymin=1e-14,ymax=1e-3,
+grid=both,legend pos=north west,
+restrict x to domain=-0.25:1.2,unbounded coords=jump
+]
+\addplot+[thick,mark=*,mark size=0.8pt]
+table[col sep=comma,x=VGS_V,y=Id_VDS0p1_exported]
+{data/idvg_vds_0p1_1p2_comparison.csv};
+\addlegendentry{$V_{DS}=0.1$ V}
+\addplot+[thick,mark=square*,mark size=0.8pt]
+table[col sep=comma,x=VGS_V,y=Id_VDS1p2_exported]
+{data/idvg_vds_0p1_1p2_comparison.csv};
+\addlegendentry{$V_{DS}=1.2$ V}
+\end{semilogyaxis}
+\end{tikzpicture}
+\caption{Semilogarithmic overlay. Near the negative-gate current floor,
+sign changes and numerical noise occur; the logarithmic plot and fits
+exclude those values.}
+\label{fig:idvg_both_log}
+\end{figure}
+
+Threshold voltage is defined here \emph{operationally} by the constant
+current criterion $I_D=10^{-7}$ in the exported current units.
+$V_{\mathrm{TH,CC}}$ is interpolated linearly in $\log_{10}(I_D)$ between
+adjacent sweep points. This chosen reference current has not been normalized
+to channel width. Subthreshold swing is calculated from a common least-squares
+fit to $\log_{10}(I_D)$ for $-0.20\leq V_{GS}\leq0.05$ V (six samples).
+The earlier eight-point fit for the single 0.1-V curve gave
+$63.61$ mV/dec; the common-window fit below is preferable for comparison.
+
+\begin{table}[H]\centering
+\caption{Baseline dual-bias metrics calculated directly from the Sentaurus
+Visual CSV. The $V_{GS}=0$ and $1.2$ V currents are specified operating-point
+proxies for $I_{\mathrm{OFF}}$ and $I_{\mathrm{ON}}$, respectively,
+pending final current normalization and metric definitions.}
+\begin{tabular}{@{}lll@{}}\toprule
+Metric & $V_{DS}=0.1$ V & $V_{DS}=1.2$ V\\\midrule
+$V_{\mathrm{TH,CC}}$ (V) & 0.17743 & 0.15934\\
+SS (mV/dec) & 63.663 & 64.094\\
+SS regression $R^2$ & 0.999999096 & 0.999999591\\
+$I_D(V_{GS}=0)$ (exported units) & $1.7620327\times10^{-10}$ & $3.4856611\times10^{-10}$\\
+$I_D(V_{GS}=1.2)$ (exported units) & $1.7960048\times10^{-4}$ & $5.8128745\times10^{-4}$\\
+\bottomrule\end{tabular}
+\end{table}
+
+The matched-definition drain-induced barrier lowering is
+\[
+\mathrm{DIBL}_{\mathrm{CC}}=
+\frac{V_{\mathrm{TH,CC}}(0.1)-V_{\mathrm{TH,CC}}(1.2)}
+{1.2-0.1}
+=\frac{0.1774277-0.1593354}{1.1}
+=\boxed{16.45\ \mathrm{mV/V}}.
+\]
+At $V_{GS}=1.2$ V, raising $V_{DS}$ from 0.1 to 1.2 V increases the
+exported current by a factor of 3.24, while the corresponding
+$V_{GS}=0$ V current increases by 1.98. This is a baseline TCAD
+comparison, not yet a width-normalized measured device specification.
+The supplied separate $I_D$--$V_D$ family remains pending.
