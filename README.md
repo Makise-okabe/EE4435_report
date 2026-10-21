@@ -20,3 +20,7 @@ The image files must be copied to the `figures/` directory with their specified 
 ## Submission integrity
 
 Measurements and claims must be supported by Sentaurus outputs. Do not invent electrical metrics or interpret visual estimates as formally extracted results. Insert the second group member's identification, contribution percentages, and the actual AI-assistance disclosure before final submission.
+
+## 21 October data update
+
+The original gate-sweep CSV and a cleaned 34-point drain-current sweep are now in the `data/` directory. `main.tex` uses PGFPlots to render two editable vector Id-Vg graphs directly from this dataset. A linear fit over VGS = -0.35 to 0 V gives SS = 63.61 mV/dec (8 points, R^2 = 0.999999892). Current units require verification. The fabrication snapshot PNGs remain to be uploaded separately.
