@@ -1,0 +1,112 @@
+\subsection{Seven-curve $I_D$--$V_D$ output-characteristic family (22 October 2026)}
+The assignment's supplied \texttt{SDevice\_IdVd.txt} command file was
+run using the same completed SProcess geometry, with
+\texttt{Grid = "@tdr@"} preprocessing to \texttt{n5\_fps.tdr}.
+A separate Workbench copy (\texttt{SOI\_nMOSFET\_Copy}) preserved
+the original dual-bias $I_D$--$V_G$ simulations. The output-characteristic
+sequence initializes the gate at zero bias, saves seven gate-bias states,
+and loads each state to sweep the drain from $V_{DS}=0$ to $1.2$ V.
+The gate biases are $V_{GS}=0,0.2,0.4,0.6,0.8,1.0,1.2$ V.
+The 0-V initial gate setting corrects the original source script's
+inconsistent initial value of $-0.5$ V before its first saved state.
+The SDevice solver reported successful completion on 22 October 2026
+at 02:36:46 SGT in 647.15 s (10 min 47 s), with all seven
+\texttt{idvd\_vgXX\_n3\_des.plt} files generated.
+
+The original seven-curve Sentaurus Visual CSV
+(\texttt{Id\_vs\_Vd\_00\_12.csv}) contains 31 equally spaced drain-bias
+values for each of the seven curves (increments of $0.04$ V).
+The seven pairs of independent X/Y columns were consolidated into
+\texttt{data/idvd\_baseline\_seven\_gate\_biases.csv}, with one shared
+drain-voltage column and seven distinct drain-current columns.
+No interpolation or smoothing was applied.
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.94\linewidth,height=7cm,
+xlabel={$V_{DS}$ (V)},ylabel={$I_D$ (exported current units)},
+xmin=0,xmax=1.2,ymin=0,ymax=0.00062,
+grid=both,legend pos=north west,
+legend style={font=\small,draw=none},
+scaled y ticks=false,
+ytick={0,0.0001,0.0002,0.0003,0.0004,0.0005,0.0006},
+yticklabels={$0$,$1\cdot10^{-4}$,$2\cdot10^{-4}$,$3\cdot10^{-4}$,$4\cdot10^{-4}$,$5\cdot10^{-4}$,$6\cdot10^{-4}$}
+]
+\addplot+[thick,no marks]
+table[col sep=comma,x=VDS_V,y=Id_VGS_00_A_exported]
+{data/idvd_baseline_seven_gate_biases.csv};
+\addlegendentry{$V_{GS}=0.0$ V}
+\addplot+[thick,no marks]
+table[col sep=comma,x=VDS_V,y=Id_VGS_02_A_exported]
+{data/idvd_baseline_seven_gate_biases.csv};
+\addlegendentry{$V_{GS}=0.2$ V}
+\addplot+[thick,no marks]
+table[col sep=comma,x=VDS_V,y=Id_VGS_04_A_exported]
+{data/idvd_baseline_seven_gate_biases.csv};
+\addlegendentry{$V_{GS}=0.4$ V}
+\addplot+[thick,no marks]
+table[col sep=comma,x=VDS_V,y=Id_VGS_06_A_exported]
+{data/idvd_baseline_seven_gate_biases.csv};
+\addlegendentry{$V_{GS}=0.6$ V}
+\addplot+[thick,no marks]
+table[col sep=comma,x=VDS_V,y=Id_VGS_08_A_exported]
+{data/idvd_baseline_seven_gate_biases.csv};
+\addlegendentry{$V_{GS}=0.8$ V}
+\addplot+[thick,no marks]
+table[col sep=comma,x=VDS_V,y=Id_VGS_10_A_exported]
+{data/idvd_baseline_seven_gate_biases.csv};
+\addlegendentry{$V_{GS}=1.0$ V}
+\addplot+[thick,no marks]
+table[col sep=comma,x=VDS_V,y=Id_VGS_12_A_exported]
+{data/idvd_baseline_seven_gate_biases.csv};
+\addlegendentry{$V_{GS}=1.2$ V}
+\end{axis}
+\end{tikzpicture}
+\caption{Simulated SOI nMOSFET output characteristics: drain
+\texttt{TotalCurrent} versus drain \texttt{OuterVoltage} for seven gate
+biases. All curves share the same current axis. The nearly zero initial
+$V_{DS}=0$ currents reflect the simulation's numerical zero-current floor.}
+\label{fig:idvd_seven}
+\end{figure}
+
+\begin{table}[H]\centering
+\caption{Direct values at $V_{DS}=1.2$ V, extracted from the supplied
+Sentaurus Visual CSV. Current magnitudes are in raw exported units;
+the corresponding mA values assume the exported units represent A.}
+\begin{tabular}{@{}lll@{}}\toprule
+$V_{GS}$ (V) & $I_D$ (exported units) & $I_D$ (mA, assuming A)\\\midrule
+0.0 & $3.4856612\times10^{-10}$ & $3.486\times10^{-7}$\\
+0.2 & $4.0002410\times10^{-7}$ & 0.0004000\\
+0.4 & $2.8921286\times10^{-5}$ & 0.028921\\
+0.6 & $1.2513808\times10^{-4}$ & 0.125138\\
+0.8 & $2.6207930\times10^{-4}$ & 0.262079\\
+1.0 & $4.1793077\times10^{-4}$ & 0.417931\\
+1.2 & $5.8128743\times10^{-4}$ & 0.581287\\
+\bottomrule\end{tabular}
+\end{table}
+
+Increasing $V_{GS}$ raises the drain current and steepens the initial
+low-$V_{DS}$ region. At sufficiently high drain bias, the current
+becomes much less sensitive to $V_{DS}$ (the saturation-like region).
+Its remaining positive slope indicates finite output conductance,
+consistent with effects such as channel-length modulation; the curve
+alone does not uniquely isolate the physical mechanism.
+For instance, at $V_{GS}=1.2$ V the drain current increases only
+1.28\% between $V_{DS}=1.0$ and $1.2$ V. The corresponding secant
+output conductance is $3.67912\times10^{-5}$ exported current units
+per volt. These quantities are descriptive, not model-fit parameters.
+
+As an internal cross-check, the $I_D$--$V_D$ family at
+$V_{GS}=V_{DS}=1.2$ V gives $5.8128743\times10^{-4}$
+(exported units), consistent to displayed precision with
+$5.8128745\times10^{-4}$ in the independently exported $I_D$--$V_G$
+transfer sweep at the same bias. The $V_{GS}=0$, $V_{DS}=1.2$ V
+operating-point currents likewise agree to displayed precision.
+This confirms consistent biasing across the two baseline electrical
+simulations.
+
+The baseline electrical simulation requirements of Part 1 are now
+fulfilled. Confirmation of the SDevice two-dimensional current
+normalization and insertion of the original process screenshots remain
+necessary before the report is finalized.
