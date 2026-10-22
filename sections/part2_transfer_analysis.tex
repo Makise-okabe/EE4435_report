@@ -1,0 +1,202 @@
+\subsection{Gate-length and top-silicon-thickness study: completed transfer sweeps}
+Two numerical student-ID digits, $A=2$ and $B=2$, give $\delta=(A+B)/2=2$. Hence
+$L_G=52,82,102,252,502,1002$ nm. The upper-silicon thicknesses were
+$T_{\mathrm{SI}}=30$ and 10 nm. All remaining SProcess inputs used the
+nominal baseline values. Twelve distinct SProcess geometries and 24
+SDevice $I_D$--$V_G$ sweeps (at $V_{DS}=0.1$ and 1.2 V) were completed
+in Sentaurus Workbench J-2014.09. The simulation job statuses and
+the individual $I_D$--$V_G$ datasets were checked.
+The original 24 export files contain 1,310 total rows. After retaining
+the last point of each repeated $V_{GS}=-0.5$ V drain-initialization
+ramp, the analyzed data consist of 35 gate voltages per transfer
+curve ($-0.5$ through 1.2 V in 0.05-V steps), i.e., 840 points.
+
+\paragraph{Extraction method and limits.}
+Electrical metrics were calculated externally using Python (pandas
+and NumPy) directly from the Sentaurus Visual exports.
+The reference-current gate voltage $V_{\mathrm{TH,CC}}$ is the crossing
+of $I_D=10^{-7}$ in the \emph{exported current units}, found by
+linear interpolation in $\log_{10} I_D$ between adjacent positive
+current values. Its value depends on the selected, not
+width-normalized current criterion. DIBL is calculated from the
+matched criterion at both drain biases,
+\[
+\mathrm{DIBL}_{\mathrm{CC}}=
+1000\,\frac{V_{\mathrm{TH,CC}}(0.1\mathrm{\,V})-
+V_{\mathrm{TH,CC}}(1.2\mathrm{\,V})}{1.1\mathrm{\,V}}
+\quad(\mathrm{mV/V}).
+\]
+The reported SS is $1000$ divided by the fitted slope of
+$\log_{10}I_D$ against $V_{GS}$ over the same six gate-bias points,
+$-0.20$ through $+0.05$ V, at $V_{DS}=0.1$ V.
+For severely short-channel devices this is an \emph{apparent
+subthreshold slope} of a fixed window; it is not proof that a true
+weak-inversion region has been captured. In particular, at
+$T_{\mathrm{SI}}=30$ nm and $L_G=52$ nm, the high-drain-bias current
+is already $3.348\times10^{-5}$ at the minimum swept gate voltage
+$-0.5$ V. Consequently $I_D=10^{-7}$ is never reached in that
+high-drain sweep; its $V_{\mathrm{TH,CC}}(1.2)$ and DIBL are
+\textbf{not reported}, not extrapolated.
+
+Here $I_{\mathrm{ON}}$ is defined at $V_{GS}=V_{DS}=1.2$ V and
+$I_{\mathrm{OFF}}$ at $V_{GS}=0$, $V_{DS}=1.2$ V.
+Current values remain in the simulator-exported units until
+the two-dimensional current-width normalization is checked.
+Both quantities are extracted directly from the simulated
+bias points.
+
+\paragraph{Quantitative metric comparison.}
+\begin{table}[H]\centering\scriptsize
+\caption{Computed gate-length sweep metrics. \texttt{N/A} means the
+constant-current threshold was outside the simulated gate-bias
+range. Currents are in exported Sentaurus units.}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}rrrrrrrr@{}}\toprule
+$T_{\mathrm{SI}}$ (nm) & $L_G$ (nm) & $V_{\mathrm{TH,0.1}}$ (V) &
+$V_{\mathrm{TH,1.2}}$ (V) & SS (mV/dec) &
+$I_{\mathrm{ON}}$ & $I_{\mathrm{OFF}}$ & DIBL (mV/V)\\\midrule
+30&52&$-0.4037$&N/A&269.3&$1.3543\times10^{-3}$&$1.0805\times10^{-4}$&N/A\\
+30&82&0.0158&$-0.3084$&113.7&$1.0471\times10^{-3}$&$7.3799\times10^{-6}$&294.7\\
+30&102&0.0843&$-0.0871$&90.1&$9.3697\times10^{-4}$&$6.0713\times10^{-7}$&155.8\\
+30&252&0.1778&0.1599&63.6&$5.7877\times10^{-4}$&$3.3930\times10^{-10}$&16.2\\
+30&502&0.2063&0.1991&61.5&$3.7524\times10^{-4}$&$6.1314\times10^{-11}$&6.6\\
+30&1002&0.2298&0.2263&60.9&$2.2549\times10^{-4}$&$2.1310\times10^{-11}$&3.2\\\midrule
+10&52&0.0172&$-0.1692$&91.2&$1.2129\times10^{-3}$&$3.6018\times10^{-6}$&169.4\\
+10&82&0.1092&0.0559&69.2&$9.9068\times10^{-4}$&$1.6965\times10^{-8}$&48.4\\
+10&102&0.1288&0.0966&65.5&$8.9849\times10^{-4}$&$3.6369\times10^{-9}$&29.2\\
+10&252&0.1726&0.1631&61.5&$5.7735\times10^{-4}$&$2.3113\times10^{-10}$&8.7\\
+10&502&0.1958&0.1911&61.0&$3.8161\times10^{-4}$&$7.5608\times10^{-11}$&4.2\\
+10&1002&0.2175&0.2149&60.8&$2.3271\times10^{-4}$&$3.0831\times10^{-11}$&2.4\\
+\bottomrule\end{tabular}}
+\end{table}
+
+\paragraph{Five required comparisons.}
+The following five plots use the numerical archives
+\texttt{data/part2\_tsi30\_metrics.csv} and
+\texttt{data/part2\_tsi10\_metrics.csv}. The raw data are plotted
+without smoothing. Missing $V_{\mathrm{TH}}$ and DIBL values for
+the 30-nm, 52-nm case are explicitly omitted.
+
+% Common axis choice: logarithmically spaced display for the six tested LG values.
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.95\linewidth,height=6.6cm,xmode=log,log basis x=10,
+xtick={52,82,102,252,502,1002},xticklabels={52,82,102,252,502,1002},
+xlabel={$L_G$ (nm)},ylabel={$V_{\mathrm{TH,CC}}$ (V)},
+grid=both,legend style={font=\scriptsize},legend pos=south east,unbounded coords=jump]
+\addplot+[mark=*,thick] table[x=LG_nm,y=VTH_0p1_V,col sep=comma] {data/part2_tsi30_metrics.csv};
+\addlegendentry{30 nm, $V_{DS}=0.1$ V}
+\addplot+[mark=square*,thick,dashed] table[x=LG_nm,y=VTH_1p2_V,col sep=comma] {data/part2_tsi30_metrics.csv};
+\addlegendentry{30 nm, $V_{DS}=1.2$ V}
+\addplot+[mark=triangle*,thick] table[x=LG_nm,y=VTH_0p1_V,col sep=comma] {data/part2_tsi10_metrics.csv};
+\addlegendentry{10 nm, $V_{DS}=0.1$ V}
+\addplot+[mark=diamond*,thick,dashed] table[x=LG_nm,y=VTH_1p2_V,col sep=comma] {data/part2_tsi10_metrics.csv};
+\addlegendentry{10 nm, $V_{DS}=1.2$ V}
+\end{axis}
+\end{tikzpicture}
+\caption{Constant-current $V_{\mathrm{TH}}$ against $L_G$, for both
+silicon thicknesses and both drain biases.}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.95\linewidth,height=6.4cm,xmode=log,log basis x=10,
+xtick={52,82,102,252,502,1002},xticklabels={52,82,102,252,502,1002},
+xlabel={$L_G$ (nm)},ylabel={SS (mV/dec)},grid=both,
+legend pos=north east,unbounded coords=jump]
+\addplot+[mark=*,thick] table[x=LG_nm,y=SS_0p1_mV_dec,col sep=comma] {data/part2_tsi30_metrics.csv};
+\addlegendentry{$T_{\mathrm{SI}}=30$ nm}
+\addplot+[mark=square*,thick] table[x=LG_nm,y=SS_0p1_mV_dec,col sep=comma] {data/part2_tsi10_metrics.csv};
+\addlegendentry{$T_{\mathrm{SI}}=10$ nm}
+\end{axis}
+\end{tikzpicture}
+\caption{Same-window $V_{DS}=0.1$ V apparent subthreshold swing versus gate length.}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.95\linewidth,height=6.4cm,xmode=log,log basis x=10,
+xtick={52,82,102,252,502,1002},xticklabels={52,82,102,252,502,1002},
+xlabel={$L_G$ (nm)},ylabel={$I_{\mathrm{ON}}$ (exported units)},
+grid=both,legend pos=north east,unbounded coords=jump]
+\addplot+[mark=*,thick] table[x=LG_nm,y=ION_exported,col sep=comma] {data/part2_tsi30_metrics.csv};
+\addlegendentry{$T_{\mathrm{SI}}=30$ nm}
+\addplot+[mark=square*,thick] table[x=LG_nm,y=ION_exported,col sep=comma] {data/part2_tsi10_metrics.csv};
+\addlegendentry{$T_{\mathrm{SI}}=10$ nm}
+\end{axis}
+\end{tikzpicture}
+\caption{ON current at $V_{GS}=V_{DS}=1.2$ V.}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogyaxis}[width=.95\linewidth,height=6.4cm,xmode=log,log basis x=10,
+xtick={52,82,102,252,502,1002},xticklabels={52,82,102,252,502,1002},
+xlabel={$L_G$ (nm)},ylabel={$I_{\mathrm{OFF}}$ (exported units)},
+grid=both,legend pos=north east,ymin=1e-11,ymax=1e-3,unbounded coords=jump]
+\addplot+[mark=*,thick] table[x=LG_nm,y=IOFF_exported,col sep=comma] {data/part2_tsi30_metrics.csv};
+\addlegendentry{$T_{\mathrm{SI}}=30$ nm}
+\addplot+[mark=square*,thick] table[x=LG_nm,y=IOFF_exported,col sep=comma] {data/part2_tsi10_metrics.csv};
+\addlegendentry{$T_{\mathrm{SI}}=10$ nm}
+\end{semilogyaxis}
+\end{tikzpicture}
+\caption{OFF current at $V_{GS}=0$ and $V_{DS}=1.2$ V.}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.95\linewidth,height=6.4cm,xmode=log,log basis x=10,
+xtick={52,82,102,252,502,1002},xticklabels={52,82,102,252,502,1002},
+xlabel={$L_G$ (nm)},ylabel={DIBL (mV/V)},grid=both,
+legend pos=north east,unbounded coords=jump]
+\addplot+[mark=*,thick] table[x=LG_nm,y=DIBL_mV_V,col sep=comma] {data/part2_tsi30_metrics.csv};
+\addlegendentry{$T_{\mathrm{SI}}=30$ nm}
+\addplot+[mark=square*,thick] table[x=LG_nm,y=DIBL_mV_V,col sep=comma] {data/part2_tsi10_metrics.csv};
+\addlegendentry{$T_{\mathrm{SI}}=10$ nm}
+\end{axis}
+\end{tikzpicture}
+\caption{Matched-reference-current DIBL against gate length.
+The missing 30-nm, 52-nm point was outside the gate sweep's threshold
+crossing range.}
+\end{figure}
+
+\paragraph{Interpretation and the first significant departure.}
+Both devices show near-ideal apparent SS at long gate lengths
+($\simeq61$ mV/dec at 1002 nm). Define a significant SS departure
+as a \emph{greater than 10\% increase} from the respective
+1002-nm reference while reducing $L_G$. With this explicit criterion,
+the first tested $L_G$ satisfying it is 102 nm for the 30-nm
+film ($90.10$ versus $60.87$ mV/dec, a 48.0\% increase) and
+82 nm for the 10-nm film ($69.16$ versus $60.84$ mV/dec, a
+13.7\% increase). DIBL responds even earlier in \emph{relative}
+terms, increasing from $3.17$ to $6.58$ mV/V between 1002
+and 502 nm in the 30-nm film, and from $2.39$ to $4.21$
+mV/V in the 10-nm film; the corresponding absolute changes
+are still small at those longer lengths.
+
+At 82 nm, switching from 30 to 10 nm top silicon reduces
+$I_{\mathrm{OFF}}$ by a factor of approximately 435,
+reduces DIBL from $294.7$ to $48.4$ mV/V,
+and improves apparent SS from $113.7$ to $69.2$ mV/dec.
+The trade-off is a 5.39\% decrease in $I_{\mathrm{ON}}$.
+At 52 nm the ON-current reduction is 10.44\%, while OFF
+current falls by a factor of approximately 30. This refutes
+a claim of \emph{no} ON-current penalty. At longer
+gate lengths the leakage advantage is small or reversed,
+so the benefit is conditional on the geometry and bias.
+This performance trend is consistent with improved
+electrostatic control in the thinner SOI film.
+
+\paragraph{Depletion interpretation and remaining Chapter 4 evidence.}
+The observed SS and DIBL improvements are consistent with
+stronger gate control and suppression of drain-induced
+barrier lowering in thin-film SOI. However, transfer-curve
+metrics \emph{alone} cannot prove that a film is fully
+depleted versus partially depleted. The requested 2D
+electrostatic-potential comparison at $V_{GS}=0$ V and
+$V_{DS}=1.2$ V, supplemented by a channel-center charge
+profile, is still needed for a spatially resolved claim.
+Also still pending are the shortest-versus-longest
+$L_G$ $I_D$--$V_D$ overlays for \emph{each} $T_{\mathrm{SI}}$.
+These plots require further bias sweeps beyond the
+completed transfer-characteristic batch.
