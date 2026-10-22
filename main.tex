@@ -27,7 +27,7 @@ Second member student ID & A0272402R (name pending)\\
 Individual contribution percentages & \pending{enter actual percentages}\\
 \end{tabular}
 \end{center}
-\noindent\textbf{Document status.} This is a working report, not the final submission. Baseline SProcess fabrication completed. Both SDevice $I_D$--$V_G$ datasets at $V_{DS}=0.1$ V and $1.2$ V were simulated and their exported gate sweeps archived, plotted and analyzed with a consistent threshold/SS extraction definition. The supplied seven-curve $I_D$--$V_D$ family has also completed successfully. Part 2's twelve geometries and twenty-four transfer sweeps have been completed and the five required metric comparisons added; its shortest/longest output-curve and potential-map evidence remains pending. Parts 3--5 and some fabrication-image documentation also remain pending.
+\noindent\textbf{Document status.} This is a working report, not the final submission. Baseline SProcess fabrication completed. Both SDevice $I_D$--$V_G$ datasets at $V_{DS}=0.1$ V and $1.2$ V were simulated and their exported gate sweeps archived, plotted and analyzed with a consistent threshold/SS extraction definition. The supplied seven-curve $I_D$--$V_D$ family has also completed successfully. Part 2's twelve geometries and twenty-four transfer sweeps have been completed and the five required metric comparisons added; its shortest/longest output curves and the two 52-nm potential maps have also been simulated and analyzed; the actual potential screenshot is available as a figure asset but still needs embedding in the repository. Parts 3--5 and some fabrication-image documentation also remain pending.
 
 \tableofcontents
 \section{Objective and methodology}
@@ -155,10 +155,9 @@ All 12 SProcess structures and 24 $I_D$--$V_G$ SDevice runs completed.
 
 \input{sections/part2_transfer_analysis}
 
-\pending{Complete the four shortest/longest-device $I_D$--$V_D$
-output-characteristic families and the 2D channel potential maps for
-the 52-nm devices at $V_{GS}=0$ V and $V_{DS}=1.2$ V.
-Verify the two-dimensional current normalization.}
+\input{sections/part2_remaining_evidence}
+\pending{Verify the two-dimensional current normalization and commit the captured original potential-comparison screenshot to \texttt{figures/part2\_potential\_comparison.png}.
+The actual simulations, data export and physical analysis for Part 2 are complete.}
 
 \section{Part 3: Activation anneal temperature}
 At $L_G=50$ nm, $T_{\mathrm{SI}}=30$ nm and $N_{\mathrm{CH}}=10^{16}$ cm$^{-3}$, the specified anneal temperatures are $800$, $850$, $900$, $950$ and $1000\,^\circ$C. \pending{Simulate, compare metric trends, arsenic profiles and extreme-temperature $I_D$--$V_D$ curves. Explain why maximizing $I_{\mathrm{ON}}$ alone is not an adequate optimization criterion.}
@@ -170,7 +169,7 @@ At $L_G=50$ nm and $T_{\mathrm{SI}}=30$ nm, use $N_{\mathrm{CH}}=(1+\delta)10^{1
 For $T_{\mathrm{SI}}=10$ and $30$ nm at $L_G=(50+\delta)$ nm, nominal remaining process parameters, $V_{GS}=0$ V and $V_{DS}=1.2$ V, the manual requires longitudinal band cutlines $1$--$2$ nm beneath the gate-oxide interface and channel-center vertical cutlines toward the buried oxide. \pending{Insert conduction/valence band plots and explain source-channel barriers, drain coupling, vertical band bending and depletion.}
 
 \section{Data integrity and pending work}
-All reported baseline currents, regression fits and threshold estimates are derived from exported Sentaurus outputs; the selected operational extraction conventions are stated beside the results. Figures for the dual-bias transfer characteristics are generated directly from the archived CSV. The fabrication screenshot placeholders remain explicitly labelled until verified original screenshots are uploaded. Part 2 transfer sweeps and metric plots are based on verified exported CSVs; its output-characteristic and potential-map comparisons and parameter studies in Parts 3--5 remain pending. The baseline $I_D$--$V_G$ and seven-curve $I_D$--$V_D$ electrical simulations are complete. No unsimulated values have been invented.
+All reported baseline currents, regression fits and threshold estimates are derived from exported Sentaurus outputs; the selected operational extraction conventions are stated beside the results. Figures for the dual-bias transfer characteristics are generated directly from the archived CSV. The fabrication screenshot placeholders remain explicitly labelled until verified original screenshots are uploaded. Part 2 transfer sweeps and metric plots are based on verified exported CSVs; the additional output-characteristic and potential-map comparisons are analyzed; their original potential screenshot must still be embedded, while parameter studies in Parts 3--5 remain pending. The baseline $I_D$--$V_G$ and seven-curve $I_D$--$V_D$ electrical simulations are complete. No unsimulated values have been invented.
 
 \section*{AI-assistance disclosure}
 AI assistance was used to organize the LaTeX report structure, document the demonstrated Sentaurus workflow, and draft explanatory text based on the supplied scripts and screenshots. Simulation execution, verification of quantitative results and engineering interpretation remain subject to student review. This statement should be updated to accurately reflect assistance used in the final submission.
