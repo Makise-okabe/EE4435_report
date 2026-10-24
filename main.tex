@@ -10,10 +10,7 @@
 
 \newcommand{\evidence}[2]{%
  \begin{figure}[H]\centering
- \IfFileExists{figures/#1.png}{\includegraphics[width=.83\linewidth]{figures/#1.png}}{%
- \fbox{\begin{minipage}[c][38mm][c]{.87\linewidth}\centering
- Screenshot not yet committed: \texttt{\detokenize{figures/#1.png}}\\
- The original screenshot was reviewed in Sentaurus Visual.\end{minipage}}}
+ \includegraphics[width=.83\linewidth]{figures/#1.png}
  \caption{#2}\end{figure}}
 \title{\textbf{EE4435 Modern Transistors and Memory Devices}\\Sentaurus TCAD: Fabrication and Characterization of an SOI nMOSFET}
 \author{Du Yanzhang \and Fang Tianchi}
@@ -128,7 +125,7 @@ expressed in mV/decade. The fitted numerical dataset gives $SS=63.61$ mV/dec at 
 
 \begin{table}[H]
 \centering
-\caption{Directly extracted values from the baseline SDevice CSV at $V_{DS}=0.1$ V. Current normalization has not yet been independently verified.}
+\caption{Directly extracted values from the baseline SDevice CSV at $V_{DS}=0.1$ V. Current magnitudes retain the simulator-exported units; no independent width conversion is applied.}
 \begin{tabular}{@{}ll@{}}
 \toprule
 Quantity & Value \\
@@ -142,7 +139,18 @@ SS fit $R^2$ & $0.999999892$ \\
 \bottomrule
 \end{tabular}
 \end{table}
-The filename \texttt{Ig\_Vg\_CSV.csv} is misleading: the export header is \texttt{drain TotalCurrent(n2\_des)}, and the gate outer voltage was selected as the plot X-axis in Sentaurus Visual. The original 45-row CSV is stored as \texttt{data/Ig\_Vg\_CSV\_original.csv}; the cleaned 34-point gate sweep is stored as \texttt{data/idvg\_vds\_0p1\_sweep.csv}. The 11 initial points at $V_{GS}=-0.5$ V, associated with the drain-bias initialization, were excluded from the plots and SS fit. The $V_{DS}=0.1$ V values here are \emph{not yet} the final assignment's $I_{\mathrm{ON}}$ or $I_{\mathrm{OFF}}$ definitions, since the specified high-drain-bias experiment and extraction conventions are still outstanding.
+The filename \texttt{Ig\_Vg\_CSV.csv} is misleading: the export
+header identifies the measured ordinate as drain
+\texttt{TotalCurrent}, not gate current. The raw 45-row file
+is archived at \texttt{data/Ig\_Vg\_CSV\_original.csv} and the
+cleaned 34-point gate sweep at
+\texttt{data/idvg\_vds\_0p1\_sweep.csv}.
+Eleven repeated $V_{GS}=-0.5$~V values from the initial
+drain-voltage ramp were removed before plotting and fitting.
+These initial $V_{DS}=0.1$~V data are retained as an
+independent check of the subsequently completed dual-drain-bias
+metrics; the defined $I_{\mathrm{ON}}$/$I_{\mathrm{OFF}}$ operating
+points are extracted from the matched high-drain-bias results.
 
 The dual-bias current extraction and output-characteristic family are
 presented below. Current values are retained in simulator-exported
