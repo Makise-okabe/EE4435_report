@@ -1,31 +1,26 @@
 # EE4435 Sentaurus TCAD Report
 
-This repository contains an Overleaf-compatible LaTeX working report for EE4435. The root document is `main.tex`; compile with **pdfLaTeX**.
+This repository contains the LaTeX report for EE4435. Compile `main.tex` using **pdfLaTeX** or import/sync the repository into Overleaf.
 
-## Report status (24 October 2026)
+## Completed simulations and report sections
 
-- Part 1: baseline fabrication, matched 0.1/1.2-V transfer sweeps, electrical metrics and seven-curve output characteristic completed.
-- Part 2: all 12 geometry structures and 24 transfer sweeps completed; five metric comparisons, required output-characteristic and electrostatic-potential comparisons included in LaTeX.
-- Part 3: all five anneal-temperature structures, ten transfer sweeps, 14 output-curve traces at 800/1000 C and source-side vertical arsenic profiles completed. The numerical threshold-based DIBL values are unavailable because the selected 1e-7 current criterion is not crossed within the high-drain-bias gate sweep. Missing values are disclosed, not extrapolated.
-- Part 4: all four channel-doping structures and eight transfer sweeps completed for 3e15, 3e16, 3e17 and 3e18 cm^-3 at both drain voltages. Metrics, five logarithmic-doping graphs (unextractable thresholds/DIBL marked N/A), extreme-doping semilog transfer overlay, and channel-center 30-nm vertical electron-density profiles are included in `sections/part4_doping_analysis.tex` using `data/part4_doping_metrics.csv`, `data/part4_idvg_all.csv`, and `data/part4_electron_vertical.csv`. At the four tested values, 3e17 cm^-3 meets the declared >=50% OFF-current reduction and <30% ON-current reduction criterion.
-- Part 5: completed using the previously saved Part 2 off-gate/high-drain snapshots of the 52-nm-gate 10-nm and 30-nm SOI devices. Longitudinal conduction/valence bands are compared at 1.5 nm below the gate oxide; vertical conduction/valence bands are compared at channel centre through the full top silicon. The four figures, source-channel barrier estimates, vertical band bending, and depletion qualification appear in `sections/part5_band_analysis.tex` (which inputs `sections/part5_longitudinal.tex` and `sections/part5_vertical.tex`). Display data: `data/part5_longitudinal_tsi10.csv`, `data/part5_longitudinal_tsi30.csv`, `data/part5_vertical_tsi10.csv`, `data/part5_vertical_tsi30.csv`.
-- Remaining final-report work: review pending fabrication screenshot placeholders, team member details/contribution percentages, and PDF compilation.
-- Verification still needed for two-dimensional terminal-current normalization and final submission metadata/AI disclosure.
+- **Part 1:** SProcess fabrication stages, matched dual-drain-bias transfer curves, extracted electrical metrics and seven-curve output characteristics.
+- **Part 2:** twelve SOI geometries, transfer sweeps and electrical metrics; output curves for the gate-length extremes at both top-silicon thicknesses; a matched high-drain-bias two-dimensional electrostatic potential comparison.
+- **Part 3:** anneal-temperature sweep, metrics, seven output curves at each extreme anneal and arsenic-profile comparison; out-of-range DIBL thresholds are explicitly not extrapolated.
+- **Part 4:** channel doping sweep, all metrics, low/high doping transfer and electron-density comparisons, and a quantitative current trade-off. The original strict-current threshold/DIBL metrics remain N/A when their crossings are outside the gate sweep. To show a *complete comparison without inventing missing VTH values*, the new charts also show clearly labelled **high-current switching-voltage markers** and the corresponding drain-bias shifts; these are **not** physical VTH or DIBL substitutes. Source: `data/part4_common_current_switching.csv`.
+- **Part 5:** conduction and valence bands along source-to-drain and through channel depth for both 10-nm and 30-nm films using the archived Part 2 SDevice TDR snapshots. Source data and plots are stored under `data/` and `sections/`.
 
-Part 3 plotted source CSVs are archived as `data/part3_idvd_T800.csv`, `data/part3_idvd_T1000.csv`, and `data/part3_arsenic_vertical_source_800_1000.csv`. The analysis is in `sections/part3_transfer_analysis.tex` and included by `main.tex`.
+## Available figure assets
 
-## Figures
+The repository already contains actual Sentaurus images:
+`figures/02_extension.png`, `03_spacer.png`, `04_annealed.png`, `05_final.png`, and `part2_potential_comparison.png`. They are included directly by LaTeX. The initial SOI-stack and gate-oxidation images have not been separately supplied; the corresponding process steps are described from the source script rather than illustrated with invented screenshots.
 
-The report references six screenshot files in `figures/`. See `figures/README.md` for exact filenames and provenance. **The screenshot images have not yet been pushed to this repository**; until they are, LaTeX displays a missing-image placeholder and still compiles.
+## Report presentation and verification
 
-The figure macro was corrected on 21 October to protect underscores in missing-image filenames. That fixes the reported cascading `Missing $ inserted` / `Extra }, or forgotten $` errors on lines containing `\\evidence`.
+The title has no date. Both team members, Du Yanzhang (A0277012M) and Fang Tianchi (A0272402R), are listed without a first/second-member distinction. The table of contents has a separate page. The old report-status banner and `Data integrity and pending work` section have been removed. The factual methods and limitations remain alongside the relevant results.
 
-The image files must be copied to the `figures/` directory with their specified filenames and committed. They will then appear automatically in the PDF on the next Overleaf recompilation.
+**Before submission:** agree on the actual individual contribution percentages, check completeness of the original fabrication-stage screenshots against the assignment, and compile/review the full report in Overleaf. Terminal-current values are intentionally retained in simulator-exported units because their two-dimensional normalization has not been independently established. The report's AI-assistance disclosure reflects the drafting and data-processing assistance.
 
-## Submission integrity
+## Data integrity
 
-Measurements and claims must be supported by Sentaurus outputs. Do not invent electrical metrics or interpret visual estimates as formally extracted results. Insert the second group member's identification, contribution percentages, and the actual AI-assistance disclosure before final submission.
-
-## 21 October data update
-
-The original gate-sweep CSV and a cleaned 34-point drain-current sweep are now in the `data/` directory. `main.tex` uses PGFPlots to render two editable vector Id-Vg graphs directly from this dataset. A linear fit over VGS = -0.35 to 0 V gives SS = 63.61 mV/dec (8 points, R^2 = 0.999999892). Current units require verification. The fabrication snapshot PNGs remain to be uploaded separately.
+Numerical results must be traceable to the Sentaurus CSV/TDR exports. No unavailable threshold, DIBL or additional bias-point measurement is extrapolated to make figures appear complete.
