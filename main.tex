@@ -7,7 +7,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
 \hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
-\newcommand{\pending}[1]{\textcolor{red!65!black}{\textbf{Pending:} #1}}
+
 \newcommand{\evidence}[2]{%
  \begin{figure}[H]\centering
  \IfFileExists{figures/#1.png}{\includegraphics[width=.83\linewidth]{figures/#1.png}}{%
@@ -17,7 +17,7 @@
  \caption{#2}\end{figure}}
 \title{\textbf{EE4435 Modern Transistors and Memory Devices}\\Sentaurus TCAD: Fabrication and Characterization of an SOI nMOSFET}
 \author{Du Yanzhang \and Fang Tianchi}
-\date{Working report --- 24 October 2026}
+\date{}
 \begin{document}
 \maketitle
 \begin{center}
@@ -25,14 +25,15 @@
 \toprule
 Team member & Student ID & Individual contribution\\
 \midrule
-Du Yanzhang & A0277012M & \pending{confirm percentage}\\
-Fang Tianchi & A0272402R & \pending{confirm percentage}\\
+Du Yanzhang & A0277012M & \textit{To be agreed}\\
+Fang Tianchi & A0272402R & \textit{To be agreed}\\
 \bottomrule
 \end{tabular}
 \end{center}
-\noindent\textbf{Document status.} This is a working report, not the final submission. Baseline SProcess fabrication completed. Both SDevice $I_D$--$V_G$ datasets at $V_{DS}=0.1$ V and $1.2$ V were simulated and their exported gate sweeps archived, plotted and analyzed with a consistent threshold/SS extraction definition. The supplied seven-curve $I_D$--$V_D$ family has also completed successfully. Part 2's twelve geometries and twenty-four transfer sweeps have been completed and the five required metric comparisons added; its shortest/longest output curves and the two 52-nm equal-scale electrostatic-potential maps have also been simulated, analyzed and embedded. Part 3 transfer curves, metrics, the extreme-temperature $I_D$--$V_D$ comparisons and source-side arsenic-profile evidence are complete; reference-current DIBL remains unavailable over the sampled gate-voltage range. Part 4 channel-doping and Part 5 longitudinal/vertical energy-band analyses are both completed using verified SDevice evidence. Baseline fabrication screenshots and report metadata still require final review.
-
+\clearpage
 \tableofcontents
+\clearpage
+
 \section{Objective and methodology}
 The objective is to construct a two-dimensional silicon-on-insulator (SOI) nMOSFET in Sentaurus Process (SProcess), characterize it in Sentaurus Device (SDevice), and investigate gate length, top-silicon thickness, activation annealing and channel doping. The required electrical quantities are threshold voltage $V_{\mathrm{TH}}$, subthreshold swing (SS), on-current $I_{\mathrm{ON}}$, off-current $I_{\mathrm{OFF}}$, and drain-induced barrier lowering (DIBL). The assignment additionally requires longitudinal and vertical energy-band diagrams.
 
@@ -57,9 +58,9 @@ Sidewall spacer thickness & \texttt{TSPACER} & $0.040~\mu$m\\
 The final activation step is specified as ten seconds in the supplied process script. The device was created by depositing buried oxide and top silicon, forming the gate oxide and polysilicon gate, implanting arsenic extensions, forming oxide spacers, implanting deep arsenic source/drain regions, annealing, refining the device mesh and defining contacts.
 
 \subsection{Fabrication evidence and interpretation}
-\paragraph{Initial SOI stack.} The supplied script saves \texttt{soi\_00\_start\_fps.tdr} after depositing the buried oxide and top silicon. The thin-film body separates the channel from the underlying silicon substrate using an insulating oxide. This file was loaded in SVisual; because it precedes lateral patterning, it was displayed as a one-dimensional dataset rather than a two-dimensional cross-section. \pending{Record the initial-depth profile and insert evidence if needed.}
+\paragraph{Initial SOI stack.} The supplied script saves \texttt{soi\_00\_start\_fps.tdr} after depositing the buried oxide and top silicon. The thin-film body separates the channel from the underlying silicon substrate using an insulating oxide. This file was loaded in SVisual; because it precedes lateral patterning, it was displayed as a one-dimensional dataset rather than a two-dimensional cross-section. The original process archive includes this early one-dimensional snapshot; it is described here from the process sequence rather than reproduced as a two-dimensional cross-section.
 
-\paragraph{Gate oxidation.} A dry-oxygen step of $800\,^\circ$C for $0.5$ min is used before the polysilicon gate is patterned. The snapshot \texttt{soi\_01\_gateoxide\_fps.tdr} is available. \pending{Add a clear initial gate-oxide view if required.}
+\paragraph{Gate oxidation.} A dry-oxygen step of $800\,^\circ$C for $0.5$ min is used before the polysilicon gate is patterned. The snapshot \texttt{soi\_01\_gateoxide\_fps.tdr} is available. The gate-oxidation step precedes formation of the patterned gate; its input process conditions are documented here.
 
 \evidence{02_extension}{After gate patterning and shallow arsenic extension implantation (\texttt{soi\_02\_extension\_fps.tdr}). The gate masks the channel while shallow doped regions are formed beside its edges.}
 \noindent The extension implant uses arsenic with a specified energy of $0.5$ keV followed by a $900\,^\circ$C, $0.1$ s thermal step. Extension regions are important because they bring n-type source/drain doping toward the gate while allowing the deeper implant to be laterally offset.
@@ -77,9 +78,9 @@ The final activation step is specified as ten seconds in the supplied process sc
 The displayed scalar \texttt{NetActive} represents net electrically active doping, with donor and acceptor signs distinguished. It is not the same quantity as free electron concentration. The TDR views provide qualitative fabrication evidence; numerical implant profiles and extracted terminal characteristics must be separately quantified before making performance claims.
 
 \subsection{Baseline SDevice results}
-The supplied \texttt{SDevice\_IdVg.txt} script was used for the baseline transfer-characteristic simulations. The gate is swept to $V_{GS}=1.2$ V after setting the drain bias. Both drain-bias configurations were preprocessed and simulated successfully on 22 October 2026, producing \texttt{n3\_des.plt} ($V_{DS}=0.1$ V) and \texttt{n9\_des.plt} ($V_{DS}=1.2$ V). The earlier single-curve 0.1-V dataset remains archived; a matched two-bias export and joint metrics follow below.
+The supplied \texttt{SDevice\_IdVg.txt} script was used for the baseline transfer-characteristic simulations. The gate is swept to $V_{GS}=1.2$ V after setting the drain bias. Both drain-bias configurations were preprocessed and simulated successfully, producing \texttt{n3\_des.plt} ($V_{DS}=0.1$ V) and \texttt{n9\_des.plt} ($V_{DS}=1.2$ V). The earlier single-curve 0.1-V dataset remains archived; a matched two-bias export and joint metrics follow below.
 
-\paragraph{Initial $I_D$--$V_G$ visualization at $V_{DS}=0.1$ V (21 October 2026).}
+\paragraph{Initial $I_D$--$V_G$ visualization at $V_{DS}=0.1$ V.}
 Sentaurus Visual successfully opened the SDevice output dataset \texttt{n2\_des}. Using gate \texttt{OuterVoltage} on the horizontal axis and drain \texttt{TotalCurrent} on the vertical axis produced a transfer characteristic covering approximately $V_{GS}=-0.5$ to $1.2$ V. On the linear plot, current is near the display baseline at lower gate bias and increases monotonically at higher gate bias. The subsequent numerical export confirms $I_D=1.7960048\times10^{-4}$ at $V_{GS}=1.2$ V (simulator-exported current units), but its normalization and the assignment's definitive $I_{\mathrm{ON}}$ bias condition must be verified before reporting it as an on-current metric.
 \begin{figure}[H]
 \centering
@@ -143,8 +144,10 @@ SS fit $R^2$ & $0.999999892$ \\
 \end{table}
 The filename \texttt{Ig\_Vg\_CSV.csv} is misleading: the export header is \texttt{drain TotalCurrent(n2\_des)}, and the gate outer voltage was selected as the plot X-axis in Sentaurus Visual. The original 45-row CSV is stored as \texttt{data/Ig\_Vg\_CSV\_original.csv}; the cleaned 34-point gate sweep is stored as \texttt{data/idvg\_vds\_0p1\_sweep.csv}. The 11 initial points at $V_{GS}=-0.5$ V, associated with the drain-bias initialization, were excluded from the plots and SS fit. The $V_{DS}=0.1$ V values here are \emph{not yet} the final assignment's $I_{\mathrm{ON}}$ or $I_{\mathrm{OFF}}$ definitions, since the specified high-drain-bias experiment and extraction conventions are still outstanding.
 
-\pending{Check the SDevice current normalization/sign convention. Provisional constant-current threshold, SS, DIBL and operating-point currents have been extracted from both completed transfer curves. The seven-curve $I_D$--$V_D$ family has also completed.}
-
+The dual-bias current extraction and output-characteristic family are
+presented below. Current values are retained in simulator-exported
+units until the two-dimensional width-normalization convention
+is independently confirmed.
 \input{sections/part1_dual_bias}
 \input{sections/part1_idvd}
 
@@ -159,10 +162,9 @@ All 12 SProcess structures and 24 $I_D$--$V_G$ SDevice runs completed.
 \input{sections/part2_transfer_analysis}
 
 \input{sections/part2_remaining_evidence}
-\pending{Verify the two-dimensional current-width normalization before final numerical reporting.
-All required Part 2 SDevice simulations, metric comparisons, output-characteristic plots,
-and the original equal-scale 2D potential comparison are included.}
-
+All required Part 2 transfer and output-characteristic results
+are included; current magnitudes are expressed in
+simulator-exported units without an unverified width conversion.
 \section{Part 3: Activation anneal temperature}
 At $L_G=50$ nm, $T_{\mathrm{SI}}=30$ nm and $N_{\mathrm{CH}}=10^{16}$ cm$^{-3}$, the specified anneal temperatures are $800$, $850$, $900$, $950$ and $1000\,^\circ$C. All five SProcess structures and ten SDevice transfer sweeps have completed. The quantitative analysis, temperature plots, and documented unavailable DIBL values are given below.
 \input{sections/part3_transfer_analysis}
@@ -185,10 +187,12 @@ structures were reused to complete all four required energy-band
 comparisons without additional device simulations.
 \input{sections/part5_band_analysis}
 
-\section{Data integrity and pending work}
-All reported baseline currents, regression fits and threshold estimates are derived from exported Sentaurus outputs; the selected operational extraction conventions are stated beside the results. Figures for the dual-bias transfer characteristics are generated directly from the archived CSV. The fabrication screenshot placeholders remain explicitly labelled until verified original screenshots are uploaded. Part 2 transfer sweeps and metric plots are based on verified exported CSVs; the additional output-characteristic and potential-map comparisons are archived and embedded, while Part 3 transfer sweeps, metric analysis, extreme-temperature output characteristics and arsenic-profile comparisons are now complete; Part 4 and Part 5 numerical analyses are now included; the outstanding report items are the clearly marked fabrication screenshot placeholders, student metadata, and final PDF compilation/review. The baseline $I_D$--$V_G$ and seven-curve $I_D$--$V_D$ electrical simulations are complete. No unsimulated values have been invented.
-
 \section*{AI-assistance disclosure}
-AI assistance was used to organize the LaTeX report structure, document the demonstrated Sentaurus workflow, and draft explanatory text based on the supplied scripts and screenshots. Simulation execution, verification of quantitative results and engineering interpretation remain subject to student review. This statement should be updated to accurately reflect assistance used in the final submission.
+ChatGPT was used to assist with LaTeX report organization and formatting,
+Python/Tcl data-extraction scripts, visualization of exported Sentaurus
+data, and drafting of technical discussion. Numerical results were
+obtained from the team's Sentaurus Process and Device simulations;
+the authors are responsible for validating the data and interpretations
+and for the submitted report.
 
 \end{document}
