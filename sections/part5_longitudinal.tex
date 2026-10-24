@@ -1,0 +1,84 @@
+\subsection{Longitudinal energy bands}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.92\linewidth,height=6.8cm,
+xlabel={Source-to-drain position, $X$ ($\mu$m)},
+ylabel={$E_C$ (eV)},xmin=-.85,xmax=.85,
+ymin=-1.5,ymax=.55,grid=both,legend pos=south west]
+\addplot+[no marks,thick]
+table[col sep=comma,x=X_um,y=Ec_eV]
+{data/part5_longitudinal_tsi30.csv};
+\addlegendentry{$T_{\mathrm{SI}}=30$ nm}
+\addplot+[no marks,thick,dashed]
+table[col sep=comma,x=X_um,y=Ec_eV]
+{data/part5_longitudinal_tsi10.csv};
+\addlegendentry{$T_{\mathrm{SI}}=10$ nm}
+\end{axis}
+\end{tikzpicture}
+\caption{Conduction-band energy, sampled 1.5 nm beneath the
+gate-oxide interface at $V_{GS}=0$, $V_{DS}=1.2$ V.
+The source lies on the left and the drain on the right.
+Shown are genuine simulator points selected for plotting.}
+\label{fig:part5_long_ec}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.92\linewidth,height=6.8cm,
+xlabel={Source-to-drain position, $X$ ($\mu$m)},
+ylabel={$E_V$ (eV)},xmin=-.85,xmax=.85,
+ymin=-2.35,ymax=-.55,grid=both,legend pos=south west]
+\addplot+[no marks,thick]
+table[col sep=comma,x=X_um,y=Ev_eV]
+{data/part5_longitudinal_tsi30.csv};
+\addlegendentry{$T_{\mathrm{SI}}=30$ nm}
+\addplot+[no marks,thick,dashed]
+table[col sep=comma,x=X_um,y=Ev_eV]
+{data/part5_longitudinal_tsi10.csv};
+\addlegendentry{$T_{\mathrm{SI}}=10$ nm}
+\end{axis}
+\end{tikzpicture}
+\caption{Valence-band energy on the same two longitudinal
+cutlines and at identical terminal biases.}
+\label{fig:part5_long_ev}
+\end{figure}
+
+\paragraph{Source-channel barrier.}
+With the source conduction band referenced at
+$X\simeq-0.8\,\mu$m, $E_C$ equals $-0.16156$ eV
+(30 nm) or $-0.15609$ eV (10 nm).
+The maximum $E_C$ along each line occurs at
+$X=-0.1275\,\mu$m and $-0.1343\,\mu$m,
+respectively, with values $0.39918$ and
+$0.38485$ eV. Hence the extracted local
+source-to-crest barrier heights are
+$0.56074$ and $0.54094$ eV. In particular,
+the thin-film cutline barrier is about
+20 meV \emph{lower} than the thick-film
+one under these specific bias conditions.
+It would be incorrect to claim a taller
+thin-film band-edge crest from these results,
+even though the measured thin-film
+$I_{\mathrm{OFF}}$ is lower (Part~2).
+Leakage depends on the complete two-dimensional
+transport path rather than one horizontal
+surface-adjacent line.
+
+\paragraph{Drain-side slope and electrostatic lowering.}
+From $X\simeq0.20$ to $0.40\,\mu$m,
+$E_C$ falls by 13.9 meV for 30 nm
+and by 7.2 meV for 10 nm, before
+a steeper descent through the drain junction.
+This particular pre-junction band-edge slope
+is smaller for the thinner film.
+The source/drain $E_C$ plateaus differ by
+approximately 1.20 eV, consistent with
+$V_{DS}=1.2$ V. Drain electrostatic coupling
+can lower the source-channel barrier in short
+devices, but \emph{quantitative drain-induced
+barrier lowering} requires a corresponding
+low-$V_{DS}$ band snapshot at the same gate
+bias. The present two TDRs both use
+$V_{DS}=1.2$ V, so this study does not
+invent a numerical change in barrier height
+between drain biases.
