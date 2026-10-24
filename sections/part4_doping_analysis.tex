@@ -1,0 +1,274 @@
+\subsection{Channel-doping sweep: completed experiment}
+With the student-specific parameter $\delta=2$, the Chapter 4
+channel-doping values are $N_{\mathrm{CH}}=3\times10^{15}$,
+$3\times10^{16}$, $3\times10^{17}$, and
+$3\times10^{18}$ cm$^{-3}$. The gate length and upper-silicon
+thickness were fixed at $L_G=50$ nm and $T_{\mathrm{SI}}=30$ nm.
+The other SProcess settings were held at the supplied nominal values,
+including $E_{\mathrm{EXT}}=0.5$ keV, $E_{\mathrm{SD}}=15$ keV
+and $T_{\mathrm{ANNEAL}}=950\,^\circ$C. Four SProcess runs
+and eight SDevice $I_D$--$V_G$ runs completed.
+Each device was swept at $V_{DS}=0.1$ V and 1.2 V.
+The associated process/device node groups were
+$n1/n2,n14$; $n4/n5,n15$; $n6/n7,n16$; and
+$n8/n9,n17$, in order of increasing doping.
+
+\paragraph{Extraction method.}
+The eight Sentaurus Visual exported current traces were reduced to
+35 unique gate-bias samples per curve (final value retained if the
+drain-initialization ramp reused $V_{GS}=-0.5$ V).
+The cleaned, matched $I_D$--$V_{GS}$ dataset is stored in
+\texttt{data/part4\_idvg\_all.csv}.
+The operating-point proxies are
+$I_{\mathrm{ON}}=|I_D|(V_{GS}=1.2\mathrm{\,V},V_{DS}=1.2\mathrm{\,V})$
+and
+$I_{\mathrm{OFF}}=|I_D|(V_{GS}=0,V_{DS}=1.2\mathrm{\,V})$.
+The current magnitudes retain the exported simulator units;
+two-dimensional width normalization has not been independently
+verified. The constant-current $V_{\mathrm{TH,CC}}$ reference
+is $|I_D|=10^{-7}$ in those units, with linear interpolation
+in $\log_{10}|I_D|$ between simulated samples. No threshold
+is extrapolated beyond the $-0.5$ to $1.2$ V gate sweep.
+The reported apparent SS uses the common $-0.20$ to
+$+0.05$ V, $V_{DS}=0.1$ V fit window for
+$\log_{10}|I_D|$; as in Parts 2 and 3, a strong regression fit
+does not prove true weak inversion in this window.
+DIBL uses matched thresholds
+$\mathrm{DIBL}_{\mathrm{CC}} =
+1000[V_{\mathrm{TH,CC}}(0.1)-V_{\mathrm{TH,CC}}(1.2)]/1.1$
+in mV/V, and is N/A where either threshold cannot be extracted.
+
+\begin{table}[H]\centering\small
+\caption{Part 4 metrics from the original Sentaurus CSV exports.
+N/A means the selected constant-current threshold is outside the
+simulated gate-voltage range, not that a simulation failed.
+$I_{\mathrm{ON}}$ and $I_{\mathrm{OFF}}$ use simulator-exported units.}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}rrrrrrrr@{}}\toprule
+$N_{\mathrm{CH}}$ (cm$^{-3}$) &
+$V_{\mathrm{TH,0.1}}$ (V) &
+$V_{\mathrm{TH,1.2}}$ (V) &
+SS (mV/dec) & $I_{\mathrm{ON}}$ &
+$I_{\mathrm{OFF}}$ & $I_{\mathrm{ON}}/I_{\mathrm{OFF}}$ &
+DIBL (mV/V)\\\midrule
+$3\times10^{15}$ & N/A & N/A & 351.80 & $1.44103\times10^{-3}$ & $1.58466\times10^{-4}$ & 9.09 & N/A\\
+$3\times10^{16}$ & N/A & N/A & 334.20 & $1.42853\times10^{-3}$ & $1.46857\times10^{-4}$ & 9.73 & N/A\\
+$3\times10^{17}$ & $-0.18582$ & N/A & 238.64 & $1.28887\times10^{-3}$ & $7.67334\times10^{-5}$ & 16.80 & N/A\\
+$3\times10^{18}$ & $0.48383$ & $0.38090$ & 81.35 & $5.49280\times10^{-4}$ & $1.72411\times10^{-12}$ & $3.19\times10^8$ & 93.57\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\paragraph{Metric plots against logarithmic channel concentration.}
+All horizontal axes in the following five required plots are
+logarithmic. Because most reference-current thresholds are
+unavailable, the threshold and DIBL plots show \emph{only}
+the extractable points rather than fitting, interpolating or
+assigning zero to the others.
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogxaxis}[width=.90\linewidth,height=6.2cm,
+xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
+ylabel={$V_{\mathrm{TH,CC}}$ (V)},
+xmin=1.5e15,xmax=5e18,ymin=-0.35,ymax=0.65,
+xtick={3e15,3e16,3e17,3e18},
+xticklabels={$3\times10^{15}$,$3\times10^{16}$,$3\times10^{17}$,$3\times10^{18}$},
+grid=both,legend pos=north west]
+\addplot+[only marks,mark=*,mark size=2.5pt]
+coordinates {(3e17,-0.18581833)(3e18,0.48382523)};
+\addlegendentry{$V_{DS}=0.1$ V}
+\addplot+[only marks,mark=square*,mark size=2.5pt]
+coordinates {(3e18,0.38089576)};
+\addlegendentry{$V_{DS}=1.2$ V}
+\end{semilogxaxis}
+\end{tikzpicture}
+\caption{Extractable constant-current threshold voltages against
+logarithmic channel doping. Low-drain threshold exists only for the
+two highest concentrations; high-drain threshold exists only for
+$3\times10^{18}$ cm$^{-3}$.}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogxaxis}[width=.90\linewidth,height=6.2cm,
+xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
+ylabel={Apparent SS (mV/dec)},xmin=1.5e15,xmax=5e18,
+xtick={3e15,3e16,3e17,3e18},
+xticklabels={$3\times10^{15}$,$3\times10^{16}$,$3\times10^{17}$,$3\times10^{18}$},
+grid=both]
+\addplot+[mark=*,thick]
+table[col sep=comma,x=NCH_cm3,y=SS_mV_dec]
+{data/part4_doping_metrics.csv};
+\end{semilogxaxis}
+\end{tikzpicture}
+\caption{Apparent subthreshold swing extracted over the same
+$V_{GS}$ regression window at $V_{DS}=0.1$ V.}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogxaxis}[width=.90\linewidth,height=6.2cm,
+xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
+ylabel={$I_{\mathrm{ON}}$ (exported current units)},
+xmin=1.5e15,xmax=5e18,
+xtick={3e15,3e16,3e17,3e18},
+xticklabels={$3\times10^{15}$,$3\times10^{16}$,$3\times10^{17}$,$3\times10^{18}$},
+grid=both]
+\addplot+[mark=*,thick]
+table[col sep=comma,x=NCH_cm3,y=ION_exported]
+{data/part4_doping_metrics.csv};
+\end{semilogxaxis}
+\end{tikzpicture}
+\caption{ON-state current at $V_{GS}=V_{DS}=1.2$ V.}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{loglogaxis}[width=.90\linewidth,height=6.2cm,
+xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
+ylabel={$I_{\mathrm{OFF}}$ (exported current units)},
+xmin=1.5e15,xmax=5e18,ymin=1e-13,ymax=1e-3,
+xtick={3e15,3e16,3e17,3e18},
+xticklabels={$3\times10^{15}$,$3\times10^{16}$,$3\times10^{17}$,$3\times10^{18}$},
+grid=both]
+\addplot+[mark=*,thick]
+table[col sep=comma,x=NCH_cm3,y=IOFF_exported]
+{data/part4_doping_metrics.csv};
+\end{loglogaxis}
+\end{tikzpicture}
+\caption{OFF-state current at $V_{GS}=0$, $V_{DS}=1.2$ V.
+Both concentration and leakage are plotted logarithmically
+to show the large dynamic range.}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogxaxis}[width=.90\linewidth,height=6.2cm,
+xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
+ylabel={Constant-current DIBL (mV/V)},
+xmin=1.5e15,xmax=5e18,ymin=0,ymax=150,
+xtick={3e15,3e16,3e17,3e18},
+xticklabels={$3\times10^{15}$,$3\times10^{16}$,$3\times10^{17}$,$3\times10^{18}$},
+grid=both]
+\addplot+[only marks,mark=*,mark size=3pt]
+coordinates {(3e18,93.57225)};
+\end{semilogxaxis}
+\end{tikzpicture}
+\caption{DIBL against logarithmic channel doping. The
+$93.57$ mV/V value is measured for the highest-doping case.
+The other three points are \emph{not measurable by the
+predeclared constant-current criterion}; no DIBL trend
+between dopings is inferred from this one point.}
+\end{figure}
+
+\paragraph{Required low-/high-doping transfer-curve overlay.}
+At the common high drain bias $V_{DS}=1.2$ V, the two extreme
+channel dopings are plotted with the same logarithmic ordinate.
+These curves come directly from the cleaned exported transfer
+traces; no fitted or extrapolated values are included.
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogyaxis}[width=.93\linewidth,height=7.0cm,
+xlabel={$V_{GS}$ (V)},ylabel={$|I_D|$ (exported current units)},
+xmin=-0.5,xmax=1.2,ymin=1e-17,ymax=1e-2,
+grid=both,legend pos=north west]
+\addplot+[no marks,thick]
+table[col sep=comma,x=VGS_V,y=Id_3e15_1p2]
+{data/part4_idvg_all.csv};
+\addlegendentry{$N_{\mathrm{CH}}=3\times10^{15}$ cm$^{-3}$}
+\addplot+[no marks,thick]
+table[col sep=comma,x=VGS_V,y=Id_3e18_1p2]
+{data/part4_idvg_all.csv};
+\addlegendentry{$N_{\mathrm{CH}}=3\times10^{18}$ cm$^{-3}$}
+\end{semilogyaxis}
+\end{tikzpicture}
+\caption{Measured semilogarithmic transfer curves at
+$V_{DS}=1.2$ V, comparing the extreme channel dopings.
+The greater high-doping OFF suppression is accompanied by
+a lower ON current.}
+\end{figure}
+
+\paragraph{Required channel-centre vertical electron density.}
+Sentaurus Visual cutlines were exported from the two completed
+high-drain SDevice results: node \texttt{n14\_des.tdr}
+($3\times10^{15}$ cm$^{-3}$) and \texttt{n17\_des.tdr}
+($3\times10^{18}$ cm$^{-3}$). Both correspond to the final
+transfer-sweep operating point $V_{GS}=V_{DS}=1.2$ V.
+The cutline used the lateral channel centre, $y=0.0$,
+and sampled the vertical depth through the
+30-nm top-silicon film. For the exported Sentaurus Visual
+coordinate labelled \texttt{Y}, the top-silicon interval
+runs approximately $-0.180$ to $-0.150\,\mu$m.
+Depth is reported as
+$d=1000(Y+0.180)\,$nm.
+Only silicon records with nonzero acceptor concentration
+were retained; the identical-coordinate oxide/interface
+records with zero \texttt{eDensity} were excluded.
+Both profiles retain 37 matched positive-concentration
+silicon data points in
+\texttt{data/part4\_electron\_vertical.csv}.
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogyaxis}[width=.93\linewidth,height=7cm,
+xlabel={Depth below top-Si gate interface (nm)},
+ylabel={Electron density $n$ (cm$^{-3}$)},
+xmin=0,xmax=30,ymin=1e6,ymax=1e21,
+grid=both,legend pos=south west]
+\addplot+[no marks,very thick]
+table[col sep=comma,x=Depth_nm,y=eDensity_NCH3e15_cm3]
+{data/part4_electron_vertical.csv};
+\addlegendentry{$N_{\mathrm{CH}}=3\times10^{15}$ cm$^{-3}$}
+\addplot+[no marks,very thick]
+table[col sep=comma,x=Depth_nm,y=eDensity_NCH3e18_cm3]
+{data/part4_electron_vertical.csv};
+\addlegendentry{$N_{\mathrm{CH}}=3\times10^{18}$ cm$^{-3}$}
+\end{semilogyaxis}
+\end{tikzpicture}
+\caption{Measured channel-centre vertical electron-density profiles
+for the extreme doping cases at $V_{GS}=V_{DS}=1.2$ V.
+The profile spans the upper-silicon film from the gate side
+to the buried-oxide interface; oxide data were removed.}
+\end{figure}
+
+The electron density remains high at the gate-side silicon interface
+under $V_{GS}=1.2$ V for both devices:
+$9.77\times10^{19}$ and $9.48\times10^{19}$ cm$^{-3}$.
+However, at $d\approx15.04$ nm the
+low-doping result is $6.64\times10^{17}$ cm$^{-3}$,
+whereas the high-doping result is
+$8.41\times10^8$ cm$^{-3}$. The higher-doped silicon
+therefore has strong carrier suppression over much of the film,
+even under the stated positive gate bias.
+The associated SDevice \texttt{eMobility} cutline
+at the same depth decreases from approximately
+$54.58$ to $37.95$ in simulator-exported mobility units.
+This supports the expected mobility penalty in this
+particular biased device, alongside the larger threshold
+and body-charge effects. These profiles are for the stated
+\emph{ON} gate bias; they must not be misrepresented as
+measured OFF-state electron-density profiles.
+
+\paragraph{Question: appreciable leakage reduction before severe drive-current loss.}
+For the discrete sweep, define \emph{appreciable} as at least
+a 50\% reduction in $I_{\mathrm{OFF}}$ relative to the
+$3\times10^{15}$ cm$^{-3}$ case,
+and \emph{severe} as a reduction of at least 30\%
+in $I_{\mathrm{ON}}$ against the same reference,
+with both values measured at the stated bias points.
+At $3\times10^{17}$ cm$^{-3}$, OFF current falls from
+$1.58466\times10^{-4}$ to $7.67334\times10^{-5}$
+(51.58\% reduction), while ON current falls from
+$1.44103\times10^{-3}$ to $1.28887\times10^{-3}$
+(10.56\% penalty). This meets the improvement
+criterion without a severe drive penalty.
+At $3\times10^{18}$ cm$^{-3}$, ON current drops by
+61.88\%, exceeding the severe-loss threshold despite
+an extremely large OFF-leakage reduction.
+Thus $3\times10^{15}$ to $3\times10^{17}$ cm$^{-3}$
+is the tested doping range satisfying both chosen criteria,
+and $3\times10^{17}$ cm$^{-3}$ is the preferred
+\emph{measured setting} under that trade-off definition.
+No optimum \emph{between} the four sampled points
+can be resolved from this discrete sweep alone.
