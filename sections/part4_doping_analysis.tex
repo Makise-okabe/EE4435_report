@@ -59,37 +59,55 @@ $3\times10^{18}$ & $0.48383$ & $0.38090$ & 81.35 & $5.49280\times10^{-4}$ & $1.7
 \end{tabular}}
 \end{table}
 
-\paragraph{Metric plots against logarithmic channel concentration.}
-All horizontal axes in the following five required plots are
-logarithmic. Because most reference-current thresholds are
-unavailable, the threshold and DIBL plots show \emph{only}
-the extractable points rather than fitting, interpolating or
-assigning zero to the others.
-
-\begin{figure}[H]\centering
+\paragraph{Threshold extraction and all-case switching-voltage comparison.}
+The original $10^{-7}$-current constant-current definition remains the
+reported threshold-voltage method. It is genuinely not extractable
+for several low-doping/bias cases within the simulated gate range:
+those values remain N/A in the table. To show a \emph{complete}
+four-doping bias-dependent voltage comparison \emph{without extrapolation},
+we additionally evaluate the gate voltage $V_{\mathrm{SW}}$ at
+$|I_D|=2\times10^{-4}$ in simulator-exported units. All eight
+measured curves cross this reference within the available sweep.
+The crossing uses the same linear-in-$\log|I_D|$ interpolation
+between adjacent sampled $V_{GS}$ points. This is a
+\emph{high-current switching-voltage marker}, not a replacement
+for physical threshold voltage or a subthreshold criterion.
+The complete four-case marker data are archived in
+\texttt{data/part4\_common\_current\_switching.csv}.
+\begin{figure}[!htbp]\centering
 \begin{tikzpicture}
-\begin{semilogxaxis}[width=.90\linewidth,height=6.2cm,
+\begin{semilogxaxis}[width=.89\linewidth,height=6.2cm,
 xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
-ylabel={$V_{\mathrm{TH,CC}}$ (V)},
-xmin=1.5e15,xmax=5e18,ymin=-0.35,ymax=0.65,
+ylabel={Gate-voltage crossing (V)},
+xmin=1.5e15,xmax=5e18,ymin=-.35,ymax=1.30,
 xtick={3e15,3e16,3e17,3e18},
 xticklabels={$3\times10^{15}$,$3\times10^{16}$,$3\times10^{17}$,$3\times10^{18}$},
-grid=both,legend pos=north west]
-\addplot+[only marks,mark=*,mark size=2.5pt]
-coordinates {(3e17,-0.18581833)(3e18,0.48382523)};
-\addlegendentry{$V_{DS}=0.1$ V}
-\addplot+[only marks,mark=square*,mark size=2.5pt]
-coordinates {(3e18,0.38089576)};
-\addlegendentry{$V_{DS}=1.2$ V}
+grid=both,legend style={font=\scriptsize,at={(0.02,.98)},anchor=north west}]
+\addplot+[mark=*,thick]
+table[col sep=comma,x=NCH_cm3,y=Vshift_0p1_V]
+{data/part4_common_current_switching.csv};
+\addlegendentry{$V_{\mathrm{SW}}$, $V_{DS}=0.1$ V}
+\addplot+[mark=square*,thick,dashed]
+table[col sep=comma,x=NCH_cm3,y=Vshift_1p2_V]
+{data/part4_common_current_switching.csv};
+\addlegendentry{$V_{\mathrm{SW}}$, $V_{DS}=1.2$ V}
+\addplot+[only marks,mark=triangle*,mark size=2.4pt]
+coordinates {(3e17,-.18581833)(3e18,.48382523)};
+\addlegendentry{Original $V_{\mathrm{TH,CC}}$, 0.1 V}
+\addplot+[only marks,mark=diamond*,mark size=2.4pt]
+coordinates {(3e18,.38089576)};
+\addlegendentry{Original $V_{\mathrm{TH,CC}}$, 1.2 V}
 \end{semilogxaxis}
 \end{tikzpicture}
-\caption{Extractable constant-current threshold voltages against
-logarithmic channel doping. Low-drain threshold exists only for the
-two highest concentrations; high-drain threshold exists only for
-$3\times10^{18}$ cm$^{-3}$.}
+\caption{Complete measured $V_{\mathrm{SW}}$ trends (curves)
+at a common high-current crossing of $2\times10^{-4}$ exported
+units, with the separately measured $10^{-7}$-criterion
+threshold voltages (isolated symbols). The markers labelled
+$V_{\mathrm{SW}}$ are \emph{not} threshold voltages; missing
+$V_{\mathrm{TH,CC}}$ values are intentionally not extrapolated.}
 \end{figure}
 
-\begin{figure}[H]\centering
+\begin{figure}[!htbp]\centering
 \begin{tikzpicture}
 \begin{semilogxaxis}[width=.90\linewidth,height=6.2cm,
 xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
@@ -142,24 +160,31 @@ Both concentration and leakage are plotted logarithmically
 to show the large dynamic range.}
 \end{figure}
 
-\begin{figure}[H]\centering
+\begin{figure}[!htbp]\centering
 \begin{tikzpicture}
-\begin{semilogxaxis}[width=.90\linewidth,height=6.2cm,
+\begin{semilogxaxis}[width=.89\linewidth,height=6.2cm,
 xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
-ylabel={Constant-current DIBL (mV/V)},
-xmin=1.5e15,xmax=5e18,ymin=0,ymax=150,
+ylabel={Drain-induced gate-voltage shift (mV/V)},
+xmin=1.5e15,xmax=5e18,ymin=0,ymax=410,
 xtick={3e15,3e16,3e17,3e18},
 xticklabels={$3\times10^{15}$,$3\times10^{16}$,$3\times10^{17}$,$3\times10^{18}$},
-grid=both]
+grid=both,legend style={font=\scriptsize,at={(0.02,.98)},anchor=north west}]
+\addplot+[mark=square*,thick,dashed]
+table[col sep=comma,x=NCH_cm3,y=DrainShift_mV_per_V]
+{data/part4_common_current_switching.csv};
+\addlegendentry{$V_{\mathrm{SW}}$ shift (not DIBL)}
 \addplot+[only marks,mark=*,mark size=3pt]
 coordinates {(3e18,93.57225)};
+\addlegendentry{Extractable strict-current DIBL}
 \end{semilogxaxis}
 \end{tikzpicture}
-\caption{DIBL against logarithmic channel doping. The
-$93.57$ mV/V value is measured for the highest-doping case.
-The other three points are \emph{not measurable by the
-predeclared constant-current criterion}; no DIBL trend
-between dopings is inferred from this one point.}
+\caption{A complete \emph{high-current gate-voltage shift}
+comparison (dashed curve) is displayed separately from
+the physically distinct $10^{-7}$ reference-current DIBL
+measurement (single filled circle, 93.57 mV/V).
+The high-current values must \emph{not} be interpreted
+as subthreshold DIBL; other strict-current DIBL
+values are outside the measured sweep.}
 \end{figure}
 
 \paragraph{Required low-/high-doping transfer-curve overlay.}
