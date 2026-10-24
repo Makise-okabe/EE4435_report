@@ -176,9 +176,207 @@ the physical mechanism. Selection of an annealing temperature
 requires jointly considering drive, leakage, and electrostatic
 control, not maximizing ON current alone.
 
-\paragraph{Required evidence still outstanding.}
-Original arsenic-concentration cross-section and/or cutline plots
-at $800$ and $1000\,^\circ$C, together with the corresponding
-seven-curve $I_D$--$V_D$ output-characteristic comparison,
-are not yet included. Current-width normalization likewise
-requires verification before physical current units are asserted.
+
+\subsection{Required extreme-temperature comparisons: completed evidence}
+Two additional seven-curve SDevice output-characteristic families were
+completed from the previously simulated $800$ and $1000\,^\circ$C
+process structures, without rerunning SProcess. Each family contains
+$V_{GS}=0.0,0.2,0.4,0.6,0.8,1.0,$ and $1.2$ V with
+$0\leq V_{DS}\leq1.2$ V. The 31-point per-curve results were exported
+from the original Sentaurus \texttt{.plt} files and retained in
+\texttt{data/part3\_idvd\_T800.csv} and
+\texttt{data/part3\_idvd\_T1000.csv}. All plots use the same horizontal
+and vertical ranges to permit direct visual comparison. The ordinate is
+the original simulator-exported current, with width normalization still
+unverified.
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=.94\linewidth,height=7.1cm,
+xlabel={$V_{DS}$ (V)},
+ylabel={$I_D$ (exported current units)},
+title={Activation anneal 800$^\circ$C},
+xmin=0,xmax=1.2,ymin=0,ymax=0.00205,
+xtick={0,0.2,0.4,0.6,0.8,1.0,1.2},
+ytick={0,0.0005,0.001,0.0015,0.002},
+yticklabels={0,0.0005,0.0010,0.0015,0.0020},
+grid=both,
+legend style={font=\scriptsize,at={(0.5,-0.20)},anchor=north},
+legend columns=4,
+]
+\addplot+[no marks,thick] table[x=VDS_V,y=VG00,col sep=comma]
+{data/part3_idvd_T800.csv};
+\addlegendentry{$V_{GS}=0.0$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG02,col sep=comma]
+{data/part3_idvd_T800.csv};
+\addlegendentry{$V_{GS}=0.2$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG04,col sep=comma]
+{data/part3_idvd_T800.csv};
+\addlegendentry{$V_{GS}=0.4$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG06,col sep=comma]
+{data/part3_idvd_T800.csv};
+\addlegendentry{$V_{GS}=0.6$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG08,col sep=comma]
+{data/part3_idvd_T800.csv};
+\addlegendentry{$V_{GS}=0.8$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG10,col sep=comma]
+{data/part3_idvd_T800.csv};
+\addlegendentry{$V_{GS}=1.0$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG12,col sep=comma]
+{data/part3_idvd_T800.csv};
+\addlegendentry{$V_{GS}=1.2$ V}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Seven measured $I_D$--$V_D$ traces for the 800$ $^\circ$C anneal.
+Gate bias ranges from $0$ to $1.2$ V in $0.2$-V steps.
+Both temperature figures use identical axis ranges for comparison.}
+\label{fig:part3_idvd_800}
+\end{figure}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=.94\linewidth,height=7.1cm,
+xlabel={$V_{DS}$ (V)},
+ylabel={$I_D$ (exported current units)},
+title={Activation anneal 1000$^\circ$C},
+xmin=0,xmax=1.2,ymin=0,ymax=0.00205,
+xtick={0,0.2,0.4,0.6,0.8,1.0,1.2},
+ytick={0,0.0005,0.001,0.0015,0.002},
+yticklabels={0,0.0005,0.0010,0.0015,0.0020},
+grid=both,
+legend style={font=\scriptsize,at={(0.5,-0.20)},anchor=north},
+legend columns=4,
+]
+\addplot+[no marks,thick] table[x=VDS_V,y=VG00,col sep=comma]
+{data/part3_idvd_T1000.csv};
+\addlegendentry{$V_{GS}=0.0$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG02,col sep=comma]
+{data/part3_idvd_T1000.csv};
+\addlegendentry{$V_{GS}=0.2$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG04,col sep=comma]
+{data/part3_idvd_T1000.csv};
+\addlegendentry{$V_{GS}=0.4$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG06,col sep=comma]
+{data/part3_idvd_T1000.csv};
+\addlegendentry{$V_{GS}=0.6$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG08,col sep=comma]
+{data/part3_idvd_T1000.csv};
+\addlegendentry{$V_{GS}=0.8$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG10,col sep=comma]
+{data/part3_idvd_T1000.csv};
+\addlegendentry{$V_{GS}=1.0$ V}
+
+\addplot+[no marks,thick] table[x=VDS_V,y=VG12,col sep=comma]
+{data/part3_idvd_T1000.csv};
+\addlegendentry{$V_{GS}=1.2$ V}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Seven measured $I_D$--$V_D$ traces for the 1000$ $^\circ$C anneal.
+Gate bias ranges from $0$ to $1.2$ V in $0.2$-V steps.
+Both temperature figures use identical axis ranges for comparison.}
+\label{fig:part3_idvd_1000}
+\end{figure}
+
+At $V_{DS}=1.2$ V, the $V_{GS}=0$ curves terminate at
+$7.31697\times10^{-5}$ (800$^\circ$C) and
+$4.95320\times10^{-4}$ (1000$^\circ$C), reproducing the transfer-sweep
+$I_{\mathrm{OFF}}$ values exactly to the exported precision. At
+$V_{GS}=1.2$ V they terminate at $1.18657\times10^{-3}$ and
+$1.92225\times10^{-3}$, consistent with the transfer-sweep
+$I_{\mathrm{ON}}$ results. Thus the higher-temperature sample
+conducts more strongly even at zero gate voltage; the apparent ON-state
+improvement comes with markedly greater off-state conduction.
+
+\paragraph{Arsenic distribution in the upper silicon.}
+The original SProcess structures were loaded in Sentaurus Visual to
+extract profiles at the two extreme temperatures. Importantly, the
+cutline command used was \texttt{create\_cutline -type x -at -0.165}:
+the exported variable named \texttt{Y} ranges from about
+$-0.180$ to $1.000\,\mu$m and represents the varying
+\emph{vertical depth} along a fixed source-side lateral location,
+not a lateral channel-crossing scan. The raw cutlines were therefore
+labelled here according to their actual coordinates:
+lateral position $y=-0.165\,\mu$m, with the plotted top-silicon
+depth $d=(x+0.180\,\mu\mathrm{m})$ from approximately 0 to 30 nm.
+This is a source-side vertical arsenic-profile comparison; it does
+\emph{not} independently establish lateral source/drain diffusion
+into the central channel.
+
+The data archive
+\texttt{data/part3\_arsenic\_vertical\_source\_800\_1000.csv}
+retains both \texttt{AsTotal} and \texttt{AsActive}
+(concentrations in cm$^{-3}$), with the common cutline mesh for the
+two structures. Non-numerical Sentaurus Visual metadata rows were
+excluded, and the comparison is restricted to the top-silicon
+material, avoiding the duplicate-coordinate interface value.
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogyaxis}[
+width=.94\linewidth,height=7cm,
+xlabel={Depth below source-side top-silicon surface (nm)},
+ylabel={Arsenic concentration (cm$^{-3}$)},
+xmin=0,xmax=30,ymin=1e19,ymax=1e22,
+grid=both,legend columns=2,
+legend style={font=\scriptsize,at={(0.5,-0.20)},anchor=north},
+]
+\addplot+[no marks,very thick] table[x=Depth_nm,y=AsActive_800,col sep=comma]
+{data/part3_arsenic_vertical_source_800_1000.csv};
+\addlegendentry{800$^\circ$C active}
+\addplot+[no marks,very thick] table[x=Depth_nm,y=AsActive_1000,col sep=comma]
+{data/part3_arsenic_vertical_source_800_1000.csv};
+\addlegendentry{1000$^\circ$C active}
+\addplot+[no marks,dashed,thick] table[x=Depth_nm,y=AsTotal_800,col sep=comma]
+{data/part3_arsenic_vertical_source_800_1000.csv};
+\addlegendentry{800$^\circ$C total}
+\addplot+[no marks,dashed,thick] table[x=Depth_nm,y=AsTotal_1000,col sep=comma]
+{data/part3_arsenic_vertical_source_800_1000.csv};
+\addlegendentry{1000$^\circ$C total}
+\end{semilogyaxis}
+\end{tikzpicture}
+\caption{Source-side vertical arsenic profiles from the original
+800$^\circ$C and 1000$^\circ$C SProcess structures, at fixed lateral
+coordinate $y=-0.165\,\mu$m. Total and electrically active arsenic
+are shown on a logarithmic concentration axis.}
+\label{fig:part3_arsenic_extremes}
+\end{figure}
+
+At approximately 15.57 nm below the top-silicon surface, the
+active-arsenic concentration rises from $1.9973\times10^{20}$
+to $3.3597\times10^{20}$ cm$^{-3}$ between 800$^\circ$C and
+1000$^\circ$C (approximately 68\% higher). Near the silicon/buried-oxide
+interface, at a depth of 29.98 nm, the corresponding values are
+$4.8715\times10^{19}$ and $2.7672\times10^{20}$
+cm$^{-3}$ (approximately 5.68 times higher).
+This establishes an anneal-dependent change in the simulated
+source-side \emph{active} arsenic distribution, consistent with
+a change in dopant activation and/or diffusion.
+The comparison does not by itself resolve which microscopic
+process dominates, nor does a source-side vertical cutline
+prove lateral junction encroachment into the channel.
+
+\paragraph{Part 3 completion and limitations.}
+All assignment-specified temperature runs, five metric
+comparisons (with explicitly unavailable reference-current
+DIBL rather than invented numbers), extreme-temperature
+arsenic profiles and extreme-temperature $I_D$--$V_D$
+families have now been documented using simulation outputs.
+The subthreshold criterion is not attained in any high-drain
+sweep; therefore the absence of numerical threshold-based
+DIBL results is an explicit limitation, not a claim that
+DIBL is zero. The simulator current-width normalization
+also remains to be checked before expressing currents
+as physical current or current per unit width.
