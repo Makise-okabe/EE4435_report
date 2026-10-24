@@ -1,0 +1,30 @@
+\subsection{Setup and evidence reuse}
+For $\delta=2$ the required short-gate devices have $L_G=52$~nm, nominal
+channel doping and process settings, and $T_{\mathrm{SI}}=30$ or 10~nm.
+At $V_{GS}=0$~V and $V_{DS}=1.2$~V, we reuse the archived Part~2
+SDevice operating-point TDRs:
+\texttt{part2\_potential\_vg00\_vd12\_n53\_des.tdr} (30~nm) and
+\texttt{part2\_potential\_vg00\_vd12\_n57\_des.tdr} (10~nm).
+No new SProcess or SDevice simulation was necessary.
+The raw SVisual exports contain both
+\texttt{ConductionBandEnergy} and \texttt{ValenceBandEnergy}.
+The longitudinal cutlines follow the lateral $X$ direction
+at 1.5~nm inside silicon below the gate-oxide interface,
+using $Y=-0.1785\,\mu$m (30~nm) and
+$Y=-0.1585\,\mu$m (10~nm).
+The vertical cutlines follow the thickness direction at
+channel-centre $X=0$. Silicon points were selected by film
+coordinates and positive channel acceptor concentration
+to exclude oxide-band discontinuities. The vertical graph
+depth is 0 at the gate-side surface and 10 or 30~nm
+at the respective buried-oxide interface.
+The longitudinal originals contain 1628/1633 samples, while
+the silicon-only vertical exports contain 37/16.
+The repository plot CSVs retain all valid vertical points
+and represent the original longitudinal curves using 48/56
+originally sampled points, with at most 0.002~eV
+piecewise-linear reconstruction error. Physical differences
+reported below were audited using the complete original cutlines.
+
+\input{sections/part5_longitudinal}
+\input{sections/part5_vertical}
