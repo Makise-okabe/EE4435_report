@@ -2,12 +2,15 @@
 
 This repository contains an Overleaf-compatible LaTeX working report for EE4435. The root document is `main.tex`; compile with **pdfLaTeX**.
 
-## Report status (21 October 2026)
+## Report status (24 October 2026)
 
-- Part 1: baseline SProcess completed; relevant SOI nMOSFET TDR snapshots were inspected.
-- Part 1: SDevice returned a gate-voltage versus drain-current curve at nominal `VDS=0.1 V` in both linear and logarithmic displays. Exact numerical extraction is pending.
-- Parts 2--5: parameter sweeps and energy-band comparisons remain pending.
-- Baseline simulation raw `.tdr`, `.plx` and `.plt` files remain on the university CADCAM system and have not been committed.
+- Part 1: baseline fabrication, matched 0.1/1.2-V transfer sweeps, electrical metrics and seven-curve output characteristic completed.
+- Part 2: all 12 geometry structures and 24 transfer sweeps completed; five metric comparisons, required output-characteristic and electrostatic-potential comparisons included in LaTeX.
+- Part 3: all five anneal-temperature structures, ten transfer sweeps, 14 output-curve traces at 800/1000 C and source-side vertical arsenic profiles completed. The numerical threshold-based DIBL values are unavailable because the selected 1e-7 current criterion is not crossed within the high-drain-bias gate sweep. Missing values are disclosed, not extrapolated.
+- Parts 4 and 5: not yet completed.
+- Verification still needed for two-dimensional terminal-current normalization and final submission metadata/AI disclosure.
+
+Part 3 plotted source CSVs are archived as `data/part3_idvd_T800.csv`, `data/part3_idvd_T1000.csv`, and `data/part3_arsenic_vertical_source_800_1000.csv`. The analysis is in `sections/part3_transfer_analysis.tex` and included by `main.tex`.
 
 ## Figures
 
