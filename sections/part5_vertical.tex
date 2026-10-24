@@ -1,0 +1,102 @@
+\subsection{Channel-centre vertical energy bands}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.92\linewidth,height=6.8cm,
+xlabel={Depth from gate-side silicon interface (nm)},
+ylabel={$E_C$ (eV)},xmin=0,xmax=30,
+ymin=.375,ymax=.47,grid=both,legend pos=north west]
+\addplot+[no marks,thick]
+table[col sep=comma,x=Depth_nm,y=Ec_eV]
+{data/part5_vertical_tsi30.csv};
+\addlegendentry{$T_{\mathrm{SI}}=30$ nm}
+\addplot+[no marks,thick,dashed]
+table[col sep=comma,x=Depth_nm,y=Ec_eV]
+{data/part5_vertical_tsi10.csv};
+\addlegendentry{$T_{\mathrm{SI}}=10$ nm}
+\end{axis}
+\end{tikzpicture}
+\caption{Channel-centre vertical conduction-band energy
+at $V_{GS}=0$ V and $V_{DS}=1.2$ V.
+The 10-nm trace ends at the 10-nm Si/BOX interface;
+the 30-nm trace ends at 30 nm. Only silicon is shown.}
+\label{fig:part5_vert_ec}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.92\linewidth,height=6.8cm,
+xlabel={Depth from gate-side silicon interface (nm)},
+ylabel={$E_V$ (eV)},xmin=0,xmax=30,
+ymin=-.735,ymax=-.635,grid=both,legend pos=north west]
+\addplot+[no marks,thick]
+table[col sep=comma,x=Depth_nm,y=Ev_eV]
+{data/part5_vertical_tsi30.csv};
+\addlegendentry{$T_{\mathrm{SI}}=30$ nm}
+\addplot+[no marks,thick,dashed]
+table[col sep=comma,x=Depth_nm,y=Ev_eV]
+{data/part5_vertical_tsi10.csv};
+\addlegendentry{$T_{\mathrm{SI}}=10$ nm}
+\end{axis}
+\end{tikzpicture}
+\caption{Channel-centre vertical valence-band energy,
+using the same off-gate/high-drain operating points
+as Fig.~\ref{fig:part5_vert_ec}.}
+\label{fig:part5_vert_ev}
+\end{figure}
+
+\paragraph{Vertical bending and gate control.}
+The 30-nm device exhibits an increase in
+$E_C$ from 0.39347 eV near the gate to
+0.45855 eV near the buried oxide:
+a total of 65.1 meV through the top
+silicon. The corresponding increase for
+10-nm silicon is 0.38269 to 0.39275 eV,
+or just 10.1 meV.
+The valence bands show similar changes
+of 64.9 meV and 10.4 meV, respectively.
+Thus the thinner silicon film displays a more
+nearly uniform transverse electrostatic band
+profile, indicating reduced variation of
+potential across the body. This is consistent
+with improved geometric gate control and
+the 10-nm device's reduced OFF current
+observed in Part~2. Both energy bands
+shift together within each film, with a local
+silicon bandgap of about 1.105 eV.
+
+\paragraph{Fully depleted versus partially depleted.}
+The original vertical SDevice records, before
+removing auxiliary columns for the report plots,
+contain mobile-hole densities far below the
+local acceptor densities throughout both films.
+The maximum ratios of hole density to acceptor
+concentration were $7.5\times10^{-8}$
+(30 nm) and $5.8\times10^{-8}$ (10 nm).
+The recorded net space charge was also
+approximately the negative acceptor density
+across the entire channel-centre silicon,
+within about 0.01\% in these samples.
+There is therefore no observed neutral,
+hole-rich core along either cutline:
+\emph{both devices are consistent with full
+body depletion at $V_{GS}=0$ V,
+$V_{DS}=1.2$ V}. The larger 30-nm band
+bending is not by itself evidence of
+partial depletion. The given data do not
+establish full depletion at all terminal
+biases, but do directly support depleted
+bodies at the specified Part~5 condition.
+
+\paragraph{Evidence limitations.}
+The archived TDRs were used without rerunning
+the physics. The four figures are based on
+Sentaurus numerical samples, not idealized
+band sketches. The longitudinal plot
+subsamples reproduce the original raw
+traces to within 2 meV under linear
+interpolation; vertical silicon samples
+were not subsampled. These band-edge
+snapshots cannot independently produce a
+numerical DIBL value without low-drain-bias
+band profiles; any stronger claim would
+exceed the evidence obtained here.
