@@ -92,7 +92,12 @@ The displayed scalar \texttt{NetActive} represents net electrically active dopin
 The supplied \texttt{SDevice\_IdVg.txt} script was used for the baseline transfer-characteristic simulations. The gate is swept to $V_{GS}=1.2$ V after setting the drain bias. Both drain-bias configurations were preprocessed and simulated successfully, producing \texttt{n3\_des.plt} ($V_{DS}=0.1$ V) and \texttt{n9\_des.plt} ($V_{DS}=1.2$ V). The earlier single-curve 0.1-V dataset remains archived; a matched two-bias export and joint metrics follow below.
 
 \paragraph{Initial $I_D$--$V_G$ visualization at $V_{DS}=0.1$ V.}
-Sentaurus Visual successfully opened the SDevice output dataset \texttt{n2\_des}. Using gate \texttt{OuterVoltage} on the horizontal axis and drain \texttt{TotalCurrent} on the vertical axis produced a transfer characteristic covering approximately $V_{GS}=-0.5$ to $1.2$ V. On the linear plot, current is near the display baseline at lower gate bias and increases monotonically at higher gate bias. The subsequent numerical export confirms $I_D=1.7960048\times10^{-4}$ at $V_{GS}=1.2$ V (simulator-exported current units), but its normalization and the assignment's definitive $I_{\mathrm{ON}}$ bias condition must be verified before reporting it as an on-current metric.
+Sentaurus Visual successfully opened the SDevice output dataset \texttt{n2\_des}. Using gate \texttt{OuterVoltage} on the horizontal axis and drain \texttt{TotalCurrent} on the vertical axis produced a transfer characteristic covering approximately $V_{GS}=-0.5$ to $1.2$ V. On the linear plot, current is near the display baseline at lower gate bias and increases monotonically at higher gate bias. The subsequent numerical export confirms
+$I_D=1.7960048\times10^{-4}$ at $V_{GS}=1.2$ V
+(simulator-exported current units). This low-drain-bias
+operating point is included for completeness; the assigned
+high-drain-bias $I_{\mathrm{ON}}$ at $V_{GS}=V_{DS}=1.2$ V
+is extracted from the matched second simulation below.
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
