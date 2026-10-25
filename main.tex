@@ -48,7 +48,26 @@ silicon bodies under the specified off-gate, high-drain bias.
 \section{Objective and methodology}
 The objective is to construct a two-dimensional silicon-on-insulator (SOI) nMOSFET in Sentaurus Process (SProcess), characterize it in Sentaurus Device (SDevice), and investigate gate length, top-silicon thickness, activation annealing and channel doping. The required electrical quantities are threshold voltage $V_{\mathrm{TH}}$, subthreshold swing (SS), on-current $I_{\mathrm{ON}}$, off-current $I_{\mathrm{OFF}}$, and drain-induced barrier lowering (DIBL). The assignment additionally requires longitudinal and vertical energy-band diagrams.
 
-The baseline process was simulated using the supplied \texttt{SProcess\_baseline.txt} script in Sentaurus Workbench J-2014.09. The project was saved at \texttt{/class3/ay2627/a277012m/STDB/SOI\_nMOSFET} on the university server. The corresponding raw TDR and PLX files remain on that server. No device metrics are inferred merely from the visible process snapshots.
+The baseline process was simulated using the supplied \texttt{SProcess\_baseline.txt} script in Sentaurus Workbench J-2014.09. The project was saved at \texttt{/class3/ay2627/a277012m/STDB/SOI\_nMOSFET} on the university server. The corresponding raw TDR and PLX files remain on that server.
+No device metrics are inferred merely from the visible process snapshots.
+
+\paragraph{Two-dimensional current normalization.}
+The supplied SDevice command files specify
+\texttt{Physics \{ AreaFactor=1.0 \}}. In Sentaurus Device's
+two-dimensional convention, an \texttt{AreaFactor} of 1
+represents an effective out-of-plane width of $1\,\mu$m.
+The terminal current of that simulated slice is therefore
+numerically equivalent to the current per micrometre of width
+for a uniform 3D device. A current for any other physical
+gate width must be scaled by its width in micrometres.
+We retain the original simulator-exported current magnitudes
+throughout the numerical comparison to avoid inadvertently
+applying a second width-scaling factor. This convention follows
+the \emph{Synopsys Sentaurus Device User Guide},
+which describes the 2D effective-width and
+\texttt{AreaFactor} definition; the modified Workbench
+decks are assumed to preserve the baseline setting
+unless otherwise noted.
 
 \section{Part 1: Baseline fabrication and electrical calculation}
 \subsection{Baseline process conditions}
