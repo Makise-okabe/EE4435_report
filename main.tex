@@ -91,17 +91,22 @@ The final activation step is specified as ten seconds in the supplied process sc
 \paragraph{Initial SOI stack.} The supplied script saves \texttt{soi\_00\_start\_fps.tdr} after depositing the buried oxide and top silicon. The $30$-nm top-silicon layer is separated from the underlying silicon by the $150$-nm buried oxide (BOX). This establishes the SOI body and reduces electrical coupling to the substrate, an essential feature of SOI electrostatic control.
 
 \input{sections/part1_initial_soi_profile}
+\input{sections/part1_initial_svisual_screenshot}
 The original SProcess dataset at this stage is one-dimensional.
-The figure therefore reports its actual material boundaries along
-depth rather than depicting a patterned two-dimensional transistor.
+The reconstructed layer map and the original SVisual screenshot
+are complementary: the former quantifies genuine region boundaries,
+whereas the latter documents the source simulation view.
 
 \paragraph{Gate oxidation.} A dry-oxygen step of $800\,^\circ$C for $0.5$ min is used before the polysilicon gate is patterned. The snapshot \texttt{soi\_01\_gateoxide\_fps.tdr} is available. The gate-oxide layer forms the insulating dielectric between the subsequently deposited polysilicon gate and the silicon surface. It enables electrostatic gate coupling while suppressing direct gate-channel conduction. The process conditions are specified from the archived SProcess command file.
 
 \input{sections/part1_gateoxide_profile}
+\input{sections/part1_gateoxide_svisual_screenshots}
 The measured surface-oxide thickness of 1.532 nm is obtained
 from the oxide's two region-interface coordinates in the
 exported 1D TDR data. The silicon beneath remains about 30 nm
-thick and the buried oxide about 150 nm thick.
+thick and the buried oxide about 150 nm thick. The two original
+SVisual screenshot views provide independent visual evidence
+for the material-region sequence and gate-oxide interface.
 
 \evidence{02_extension}{After gate patterning and shallow arsenic extension implantation (\texttt{soi\_02\_extension\_fps.tdr}). The gate masks the channel while shallow doped regions are formed beside its edges.}
 \noindent The extension implant uses arsenic with a specified energy of $0.5$ keV followed by a $900\,^\circ$C, $0.1$ s thermal step. The shallow n-type extensions form access regions close to the gated channel and reduce parasitic series resistance. Their junction placement also affects short-channel electrostatics; the subsequent deeper source/drain implant is deliberately offset by the spacers.
