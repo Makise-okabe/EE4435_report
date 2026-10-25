@@ -40,8 +40,10 @@ high-drain sweep; its $V_{\mathrm{TH,CC}}(1.2)$ and DIBL are
 
 Here $I_{\mathrm{ON}}$ is defined at $V_{GS}=V_{DS}=1.2$ V and
 $I_{\mathrm{OFF}}$ at $V_{GS}=0$, $V_{DS}=1.2$ V.
-Current values remain in the simulator-exported units until
-the two-dimensional current-width normalization is checked.
+Current values retain the simulator-exported magnitudes without
+further width scaling. The supplied SDevice baseline uses
+\texttt{AreaFactor=1.0}; the original simulator units are
+preserved for comparison across the modified Workbench decks.
 Both quantities are extracted directly from the simulated
 bias points.
 
