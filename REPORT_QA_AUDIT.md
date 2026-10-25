@@ -14,7 +14,7 @@ This file is a quality-control record **outside** the submitted LaTeX report. It
 
 | Requirement | Evidence | Audit outcome |
 | --- | --- | --- |
-| Part 1: process flow and key physical steps | Original process script; extension, spacer, anneal and final structure PNGs; explanations | **1D early-stage profiles now included**: measured SProcess material-depth maps cover initial SOI and gate oxide; literal Sentaurus Visual screenshots are distinct and not yet supplied |
+| Part 1: process flow and key physical steps | Original process script; extension, spacer, anneal and final structure PNGs; explanations | **Complete**: authentic SVisual 1D screenshots and traceable region-interface depth reconstructions cover both initial SOI and gate-oxide stages |
 | Part 1: VDS=0.1/1.2 V Id-Vg, Id-Vd family, VTH, SS, ION, IOFF and DIBL | Verified 2 transfer sweeps, 7 output curves and table | Verified |
 | Part 2: 6 lengths by 2 film thicknesses, five trends, extreme Id-Vd overlays | 12 structures, 24 transfer curves, 28 output curves and metric plots | Verified, with the 30-nm 52-nm high-drain threshold/DIBL correctly marked unavailable |
 | Part 2: short-device 2D electrostatic potential at VGS=0,VDS=1.2 | Two archived Part 2 bias-point structures and comparison PNG | Verified presence; visual color-scale parity described in text |
@@ -35,9 +35,9 @@ This file is a quality-control record **outside** the submitted LaTeX report. It
 
 ## Remaining high-impact actions before final submission
 
-1. **Early fabrication-stage evidence integrated.** Two dimensionally scaled material-depth diagrams were reconstructed from the original 1D TDR exports and added to the main report. They are vector plots, not genuine SVisual screenshots, and source interfaces are preserved in `data/part1_early_1d_region_boundaries.csv`. If the examiner literally requires screenshots, additionally capture and label the two original 1D material profiles.
+1. **Early fabrication-stage evidence integrated.** The report now includes three genuine cropped SVisual screenshots (initial stack, gate-oxide full extent and zoom) and two independent dimensionally scaled material-depth diagrams reconstructed from the authentic 1D SProcess TDR exports. The numerical interface positions are preserved in `data/part1_early_1d_region_boundaries.csv`; do not confuse 1D material indicators with spatial Y-coordinates or current curves.
 2. **Compile the full current GitHub version in Overleaf**, inspect the compiler log, open every PDF page at readable scale, and resolve any errors, clipped legend labels, unexpected blanks, or missing images. The earlier screenshots of Overleaf are from an older commit and do not certify the present report. **Visual inspection of the existing Sentaurus PNGs identified a specific readability issue:** the NetActive/electrostatic-potential color legends overlap the plotted device region in several exported images, especially the side-by-side Part 2 potential map. Re-exporting these original plots with externally positioned legible color legends would improve presentation without changing the numerical data.
 3. **Maintain the metric distinction**: the complete high-current switching-voltage graphs are supplementary; missing reference-current VTH/DIBL results have not become measurable. If the marker expects a numeric DIBL trend at all anneal/doping values, that requires a separately defensible extraction protocol or additional gate-voltage data, not mere relabelling of high-current bias shifts.
 4. **Check final submission metadata** against the Canvas group registration and ensure that the submitted artifact is a single final PDF, as the course requires.
 
-The numerical audit does **not** imply a guaranteed assessment mark. Authentic process-stage screenshots and successful compilation remain important for a fully defensible submission.
+The numerical audit does **not** imply a guaranteed assessment mark. Successful compilation and final layout review remain important for a fully defensible submission.
