@@ -1,22 +1,31 @@
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=.86\linewidth]{figures/01_gateoxide_full_svisual.png}
+{\small
+\textcolor{red}{Top silicon}\quad
+\textcolor{green!60!black}{Gate oxide}\quad
+\textcolor{blue}{BOX}\quad
+\textcolor{cyan!60!black}{Silicon substrate}}\par\smallskip
+{\small (a) Whole one-dimensional material stack}\par
+\includegraphics[
+  width=.90\linewidth,height=4.3cm,keepaspectratio,
+  trim=0bp 5bp 0bp 105bp,clip
+]{figures/01_gateoxide_full_svisual.png}
 \par\smallskip
-{\small (a) Complete one-dimensional material-stack extent}\par
-\medskip
-\includegraphics[width=.86\linewidth]{figures/01_gateoxide_zoom_svisual.png}
-\par\smallskip
-{\small (b) Enlarged surface gate-oxide/top-silicon region}\par
-
-\caption{Original Sentaurus Visual screenshots from
-\texttt{soi\_01\_gateoxide\_fps.tdr}:
-(a) full gate-oxide, silicon, BOX and substrate depth intervals,
-and (b) a depth-axis close-up of the newly grown gate oxide
-(\texttt{Region\_Oxide\_2}) adjoining top silicon
-(\texttt{Region\_Silicon\_2}). The ordinate $Y=1$ denotes
-membership of a selected material region; it is not a dopant
-concentration or physical spatial coordinate. The measured oxide
-thickness is 1.532\,nm, obtained from the exported SProcess
-interface positions rather than screenshot pixel dimensions.}
+{\small (b) Zoom at the gate-oxide/silicon interface}\par
+\includegraphics[
+  width=.90\linewidth,height=4.3cm,keepaspectratio,
+  trim=0bp 5bp 0bp 105bp,clip
+]{figures/01_gateoxide_zoom_svisual.png}
+\caption{Original SVisual screenshots from
+\texttt{soi\_01\_gateoxide\_fps.tdr}, cropped only to remove
+empty upper plotting space while keeping the original aspect
+ratio and depth axes. The colored lines at $Y=1$ are
+region-membership indicators, not device-current traces.
+The gate oxide is \texttt{Region\_Oxide\_2} (green) and
+the underlying film is \texttt{Region\_Silicon\_2} (red).
+The oxide thickness of 1.532\,nm comes from the original
+SProcess region-interface coordinates, not screenshot pixels;
+its source-derived physical-depth diagram appears in
+Fig.~\ref{fig:gate_oxide_material_profile}.}
 \label{fig:part1_gateoxide_svisual_actual}
 \end{figure}
