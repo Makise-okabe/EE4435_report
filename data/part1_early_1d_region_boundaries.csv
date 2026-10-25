@@ -1,0 +1,8 @@
+Stage,Boundary,Original_X_um,Depth_from_gate_Si_surface_nm,Left_region,Right_region
+initial,Gas/top-Si,-0.18000001,0,Gas_1,Silicon_2
+initial,Top-Si/BOX,-0.15000001,30.00000,Silicon_2,Oxide_1
+initial,BOX/substrate,0,180.00001,Oxide_1,Silicon_1
+gateoxidation,Gas/gate-oxide,-0.18151803,-1.53231,Gas_1,Oxide_2
+gateoxidation,Gate-oxide/top-Si,-0.17998572,0,Oxide_2,Silicon_2
+gateoxidation,Top-Si/BOX,-0.15000001,29.98571,Silicon_2,Oxide_1
+gateoxidation,BOX/substrate,0,179.98572,Oxide_1,Silicon_1
