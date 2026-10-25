@@ -23,9 +23,10 @@ The operating-point proxies are
 $I_{\mathrm{ON}}=|I_D|(V_{GS}=1.2\mathrm{\,V},V_{DS}=1.2\mathrm{\,V})$
 and
 $I_{\mathrm{OFF}}=|I_D|(V_{GS}=0,V_{DS}=1.2\mathrm{\,V})$.
-The current magnitudes retain the exported simulator units;
-two-dimensional width normalization has not been independently
-verified. The constant-current $V_{\mathrm{TH,CC}}$ reference
+The current magnitudes retain the native exported simulator
+units without applying another width conversion. The supplied
+baseline SDevice script specifies \texttt{AreaFactor=1.0},
+and the modified Workbench decks are assumed to retain this setting. The constant-current $V_{\mathrm{TH,CC}}$ reference
 is $|I_D|=10^{-7}$ in those units, with linear interpolation
 in $\log_{10}|I_D|$ between simulated samples. No threshold
 is extrapolated beyond the $-0.5$ to $1.2$ V gate sweep.
