@@ -8,6 +8,6 @@ The following original Sentaurus visualization PNGs are **already committed** an
 - `05_final.png` — final contact/mesh
 - `part2_potential_comparison.png` — two matched 2D potential maps at VGS=0 V and VDS=1.2 V
 
-The initial stack and initial gate-oxide stages have no separate PNG in this directory. Do not label unrelated images as those stages. The two baseline Id–Vg figures are vector plots generated from the archived CSV data rather than screenshots.
+The initial stack and gate-oxide stages are now covered by vector TikZ region-depth plots in `sections/part1_initial_soi_profile.tex` and `sections/part1_gateoxide_profile.tex`. They are reconstructed from the original SProcess 1D TDR interfaces, not fabricated 2D cross sections or screenshots. The two baseline Id–Vg figures are vector plots generated from the archived CSV data rather than screenshots.
 
 Numerical measurements are derived from exported Sentaurus data, not by measuring plot screenshots.
