@@ -13,13 +13,13 @@ This repository contains the LaTeX report for EE4435. Compile `main.tex` using *
 ## Available figure assets
 
 The repository already contains actual Sentaurus images:
-`figures/02_extension.png`, `03_spacer.png`, `04_annealed.png`, `05_final.png`, and `part2_potential_comparison.png`. They are included directly by LaTeX. The original 1D TDR exports for the initial SOI stack and gate oxidation were converted to authentic, scale-accurate vector material-depth diagrams included in the report: `sections/part1_initial_soi_profile.tex` and `sections/part1_gateoxide_profile.tex`. Their measured boundaries are archived in `data/part1_early_1d_region_boundaries.csv`. These are reconstructed plots from the real 1D data, not 2D simulation screenshots.
+`figures/02_extension.png`, `03_spacer.png`, `04_annealed.png`, `05_final.png`, and `part2_potential_comparison.png`. They are included directly by LaTeX. The original 1D TDR exports for the initial SOI stack and gate oxidation were converted to authentic, scale-accurate vector material-depth diagrams included in the report: `sections/part1_initial_soi_profile.tex` and `sections/part1_gateoxide_profile.tex`. Their measured boundaries are archived in `data/part1_early_1d_region_boundaries.csv`. The original SVisual evidence is additionally included as three cropped screenshots `figures/00_initial_soi_svisual.png`, `figures/01_gateoxide_full_svisual.png`, and `figures/01_gateoxide_zoom_svisual.png`, with correct 1D-axis captions. The reconstructed material-depth diagrams are distinct from the screenshots.
 
 ## Report presentation and verification
 
 The title has no date. Both team members, Du Yanzhang (A0277012M) and Fang Tianchi (A0272402R), are listed without a first/second-member distinction. The table of contents has a separate page. The old report-status banner and `Data integrity and pending work` section have been removed. The factual methods and limitations remain alongside the relevant results.
 
-**Before submission:** compile and review the complete report in Overleaf. If literal screenshots are required in addition to the source-derived early-stage plots, export and include the two original SVisual 1D views. Terminal-current values are intentionally retained in simulator-exported units because their two-dimensional normalization has not been independently established. The report's AI-assistance disclosure reflects the drafting and data-processing assistance.
+**Before submission:** compile and review the complete report in Overleaf. The original SVisual screenshots and the source-derived 1D material-depth diagrams are now both included. Terminal-current values are intentionally retained in simulator-exported units because their two-dimensional normalization has not been independently established. The report's AI-assistance disclosure reflects the drafting and data-processing assistance.
 
 ## Data integrity
 
