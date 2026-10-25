@@ -88,9 +88,30 @@ Sidewall spacer thickness & \texttt{TSPACER} & $0.040~\mu$m\\
 The final activation step is specified as ten seconds in the supplied process script. The device was created by depositing buried oxide and top silicon, forming the gate oxide and polysilicon gate, implanting arsenic extensions, forming oxide spacers, implanting deep arsenic source/drain regions, annealing, refining the device mesh and defining contacts.
 
 \subsection{Fabrication evidence and interpretation}
-\paragraph{Initial SOI stack.} The supplied script saves \texttt{soi\_00\_start\_fps.tdr} after depositing the buried oxide and top silicon. The $30$-nm top-silicon layer is separated from the underlying silicon by the $150$-nm buried oxide (BOX). This establishes the SOI body and reduces electrical coupling to the substrate, an essential feature of SOI electrostatic control. This file was loaded in SVisual; because it precedes lateral patterning, it was displayed as a one-dimensional dataset rather than a two-dimensional cross-section. The original process archive includes this early one-dimensional snapshot; it is described here from the process sequence rather than reproduced as a two-dimensional cross-section.
+\paragraph{Initial SOI stack.} The supplied script saves \texttt{soi\_00\_start\_fps.tdr} after depositing the buried oxide and top silicon. The $30$-nm top-silicon layer is separated from the underlying silicon by the $150$-nm buried oxide (BOX). This establishes the SOI body and reduces electrical coupling to the substrate, an essential feature of SOI electrostatic control.
+
+\IfFileExists{figures/00_initial_soi.png}{%
+\begin{figure}[!htbp]\centering
+\includegraphics[width=.82\linewidth]{figures/00_initial_soi.png}
+\caption{Initial SOI-stack stage exported from
+\texttt{soi\_00\_start\_fps.tdr}.
+The saved initial-stage dataset may be displayed as a
+one-dimensional structure/profile in SVisual.}
+\end{figure}
+}{}
+ This file was loaded in SVisual; because it precedes lateral patterning, it was displayed as a one-dimensional dataset rather than a two-dimensional cross-section. The original process archive includes this early one-dimensional snapshot; it is described here from the process sequence rather than reproduced as a two-dimensional cross-section.
 
 \paragraph{Gate oxidation.} A dry-oxygen step of $800\,^\circ$C for $0.5$ min is used before the polysilicon gate is patterned. The snapshot \texttt{soi\_01\_gateoxide\_fps.tdr} is available. The gate-oxide layer forms the insulating dielectric between the subsequently deposited polysilicon gate and the silicon surface. It enables electrostatic gate coupling while suppressing direct gate-channel conduction. The process conditions are specified from the archived SProcess command file.
+
+\IfFileExists{figures/01_gateoxide.png}{%
+\begin{figure}[!htbp]\centering
+\includegraphics[width=.82\linewidth]{figures/01_gateoxide.png}
+\caption{Initial gate oxidation stage visualized from
+\texttt{soi\_01\_gateoxide\_fps.tdr},
+before gate patterning and extension implantation.}
+\end{figure}
+}{}
+
 
 \evidence{02_extension}{After gate patterning and shallow arsenic extension implantation (\texttt{soi\_02\_extension\_fps.tdr}). The gate masks the channel while shallow doped regions are formed beside its edges.}
 \noindent The extension implant uses arsenic with a specified energy of $0.5$ keV followed by a $900\,^\circ$C, $0.1$ s thermal step. The shallow n-type extensions form access regions close to the gated channel and reduce parasitic series resistance. Their junction placement also affects short-channel electrostatics; the subsequent deeper source/drain implant is deliberately offset by the spacers.
