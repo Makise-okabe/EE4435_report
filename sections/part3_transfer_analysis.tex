@@ -26,9 +26,10 @@ fixed window is in true weak inversion, particularly for the
 high-leakage devices.
 $I_{\mathrm{ON}}=|I_D|(V_{GS}=V_{DS}=1.2\ \mathrm V)$,
 and $I_{\mathrm{OFF}}=|I_D|(V_{GS}=0,V_{DS}=1.2\ \mathrm V)$.
-The two-dimensional current-width normalization has not yet been
-verified, so all current magnitudes below are labelled
-\emph{exported current units}, not amperes or amperes per micrometre.
+All current magnitudes below retain the simulator-exported units
+without additional width scaling. The supplied two-dimensional
+SDevice baseline specifies \texttt{AreaFactor=1.0}; the numerical
+comparisons do not assume a separate device width.
 
 \begin{table}[H]\centering\small
 \caption{Part 3 values extracted from completed Sentaurus sweeps.
@@ -432,6 +433,6 @@ families have now been documented using simulation outputs.
 The subthreshold criterion is not attained in any high-drain
 sweep; therefore the absence of numerical threshold-based
 DIBL results is an explicit limitation, not a claim that
-DIBL is zero. The simulator current-width normalization
-also remains to be checked before expressing currents
-as physical current or current per unit width.
+DIBL is zero. The original simulator current magnitudes and \texttt{AreaFactor}
+convention are preserved without imposing a physical width
+other than that represented by the two-dimensional baseline.
