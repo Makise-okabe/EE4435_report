@@ -9,11 +9,15 @@ $0.04$ V steps. The original data comprise 31 points per curve,
 and the display CSVs retain 11 exact points per curve without fitting.
 A solid line denotes $L_G=52$ nm and a dashed line $L_G=1002$ nm;
 matching colors denote equal $V_{GS}$ biases.
+For legibility these output-current ordinates are multiplied by
+$10^3$ relative to the simulator-exported current magnitudes;
+the conversion is an explicit display scaling \emph{only},
+not an assumption that the native 2D current is in amperes.
 
 \begin{figure}[H]\centering
 \begin{tikzpicture}
 \begin{axis}[width=.95\linewidth,height=7.1cm,
-xlabel={$V_{DS}$ (V)},ylabel={$I_D$ (mA, assuming exported A)},
+xlabel={$V_{DS}$ (V)},ylabel={$10^3 I_D$ (scaled exported units)},
 xmin=0,xmax=1.2,ymin=0,
 grid=both,
 legend style={font=\scriptsize,at={(0.02,0.98)},anchor=north west,fill opacity=.9,text opacity=1},
@@ -51,7 +55,7 @@ Eleven unmodified samples per curve from the original 31 are plotted.}
 \begin{figure}[H]\centering
 \begin{tikzpicture}
 \begin{axis}[width=.95\linewidth,height=7.1cm,
-xlabel={$V_{DS}$ (V)},ylabel={$I_D$ (mA, assuming exported A)},
+xlabel={$V_{DS}$ (V)},ylabel={$10^3 I_D$ (scaled exported units)},
 xmin=0,xmax=1.2,ymin=0,
 grid=both,
 legend style={font=\scriptsize,at={(0.02,0.98)},anchor=north west,fill opacity=.9,text opacity=1},
@@ -98,8 +102,8 @@ the 52-nm device OFF currents are $1.08052\times10^{-4}$
 reducing $T_{\mathrm{SI}}$ lowers this current by about $30.0$ times,
 with a $10.4\%$ reduction in the corresponding ON current.
 These results support improved electrostatic control in the thinner film
-but reveal an ON-current trade-off. Current-width normalization should
-be verified before reporting current in absolute mA.
+but reveal an ON-current trade-off. Current-width normalization is not independently established;
+therefore the figure and comparisons do not claim absolute mA units.
 
 \paragraph{2D electrostatic potential at $V_{GS}=0$, $V_{DS}=1.2$ V.}
 The 52-nm devices also produced the saved SDevice snapshots
