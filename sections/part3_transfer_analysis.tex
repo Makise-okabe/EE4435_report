@@ -70,22 +70,45 @@ Replacing the current criterion with an on-state value would
 give a \emph{different} matched-current voltage shift, not the same
 subthreshold-threshold DIBL. No extrapolated values are reported.
 
-\paragraph{Temperature dependence of the threshold criterion.}
-\begin{figure}[H]\centering
+\paragraph{Threshold criterion and complete switching-voltage comparison.}
+The constant-current $10^{-7}$ threshold values below are shown
+only where the sampled gate sweep actually crosses that criterion.
+A separate, higher-current switching marker is introduced at
+$|I_D|=3.5\times10^{-4}$ in simulator-exported units.
+This current lies within all ten gate-sweep ranges, allowing
+a complete measured five-temperature comparison using interpolation
+in $\log_{10}|I_D|$. The symbol $V_{\mathrm{SW}}$ denotes this
+\emph{high-current marker}, not a physical subthreshold threshold
+voltage. Its source data are in
+\texttt{data/part3\_common\_current\_switching.csv}.
+
+\begin{figure}[!htbp]\centering
 \begin{tikzpicture}
-\begin{axis}[width=.90\linewidth,height=6.0cm,
+\begin{axis}[width=.90\linewidth,height=6.5cm,
 xlabel={Anneal temperature ($^\circ$C)},
-ylabel={$V_{\mathrm{TH,CC}}$ (V)},xmin=780,xmax=1020,
-xtick={800,850,900,950,1000},ymin=-.56,ymax=-.2,
-grid=both]
-\addplot+[only marks,mark=*,mark size=2.5pt]
+ylabel={Gate-voltage crossing (V)},
+xmin=780,xmax=1020,ymin=-.60,ymax=1.05,
+xtick={800,850,900,950,1000},grid=both,
+legend style={font=\scriptsize,at={(0.02,.98)},anchor=north west}]
+\addplot+[mark=*,thick]
+table[col sep=comma,x=TANNEAL_C,y=Vshift_0p1_V]
+{data/part3_common_current_switching.csv};
+\addlegendentry{$V_{\mathrm{SW}}$, $V_{DS}=0.1$ V}
+\addplot+[mark=square*,thick,dashed]
+table[col sep=comma,x=TANNEAL_C,y=Vshift_1p2_V]
+{data/part3_common_current_switching.csv};
+\addlegendentry{$V_{\mathrm{SW}}$, $V_{DS}=1.2$ V}
+\addplot+[only marks,mark=triangle*,mark size=2.5pt]
 coordinates {(800,-0.3016) (850,-0.4518)};
+\addlegendentry{$V_{\mathrm{TH,CC}}$, $V_{DS}=0.1$ V}
 \end{axis}
 \end{tikzpicture}
-\caption{Measured low-drain-bias constant-current threshold versus
-anneal temperature. Only two of five temperatures cross the chosen
-current criterion; the high-$V_{DS}$ thresholds are all unavailable.
-No interpolation or trend line is drawn through missing values.}
+\caption{All-five-temperature measured high-current
+gate-voltage markers, distinct from the isolated genuine
+$10^{-7}$ threshold crossings. The 3.5$\times10^{-4}$
+switching marker must not be presented as a physical
+threshold voltage; missing strict-current thresholds
+have not been extrapolated.}
 \end{figure}
 
 \paragraph{Temperature dependence of apparent SS.}
@@ -157,6 +180,36 @@ coordinates {(800,1e-7)(1000,1e-7)};
 DIBL-vs-temperature plot: the minimum current in every high-$V_{DS}$
 sweep lies above the $10^{-7}$ reference. Thus this reference-current
 DIBL cannot be extracted from the existing bias sweeps.}
+\end{figure}
+
+\paragraph{High-current drain-bias shift at a common measurable current.}
+A complementary comparison for all anneal temperatures can be
+formed from $\Delta V_{\mathrm{SW}}=
+1000[V_{\mathrm{SW}}(V_{DS}=0.1)-
+V_{\mathrm{SW}}(V_{DS}=1.2)]/1.1$ (mV/V)
+at the common high current $3.5\times10^{-4}$.
+This is a \emph{matched-current operating-voltage shift}
+in a relatively conducting regime; it is explicitly
+\emph{not} the missing subthreshold-threshold DIBL.
+
+\begin{figure}[!htbp]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.90\linewidth,height=6.0cm,
+xlabel={Anneal temperature ($^\circ$C)},
+ylabel={High-current gate shift (mV/V)},
+xmin=780,xmax=1020,ymin=0,ymax=1000,
+xtick={800,850,900,950,1000},
+grid=both]
+\addplot+[mark=square*,thick]
+table[col sep=comma,x=TANNEAL_C,y=DrainShift_mV_per_V]
+{data/part3_common_current_switching.csv};
+\end{axis}
+\end{tikzpicture}
+\caption{Measured five-temperature drain-bias-dependent
+gate-voltage shift at $|I_D|=3.5\times10^{-4}$
+(exported units). This operating-current marker provides
+a complete bias-shift comparison but does not replace
+the unavailable $10^{-7}$-criterion DIBL values.}
 \end{figure}
 
 \paragraph{Why larger $I_{\mathrm{ON}}$ alone is insufficient.}
