@@ -1,12 +1,25 @@
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=.90\linewidth]{figures/00_initial_soi_svisual.png}
-\caption{Original Sentaurus Visual screenshot of the unpatterned
-one-dimensional SOI stack saved as \texttt{soi\_00\_start\_fps.tdr}.
-The horizontal axis is depth $X$ in $\mu$m. Colored horizontal
-segments at $Y=1$ are SVisual \emph{region-membership indicators},
-not measured concentrations or a current--voltage characteristic.
-The corresponding physical layer thicknesses are quantified in
+{\small
+\textcolor{blue}{Top silicon}\quad
+\textcolor{green!60!black}{Buried oxide (BOX)}\quad
+\textcolor{red}{Silicon substrate}}\par\smallskip
+\includegraphics[
+  width=.92\linewidth,
+  height=4.3cm,
+  keepaspectratio,
+  trim=0bp 4bp 0bp 105bp,
+  clip
+]{figures/00_initial_soi_svisual.png}
+\caption{Original Sentaurus Visual evidence for the initial SOI
+material regions in \texttt{soi\_00\_start\_fps.tdr}.
+The screenshot has been cropped vertically to remove empty
+plotting space; its aspect ratio and measured curve data are
+unchanged. The horizontal coordinate is simulation depth $X$;
+the colored line at $Y=1$ represents categorical region
+membership, \emph{not} an $I$--$V$ curve or a two-dimensional
+device cross-section. The physical layer thicknesses are
+displayed clearly and to scale in
 Fig.~\ref{fig:initial_soi_material_profile}.}
 \label{fig:part1_soi_svisual_actual}
 \end{figure}
