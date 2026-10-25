@@ -41,3 +41,15 @@ This file is a quality-control record **outside** the submitted LaTeX report. It
 4. **Check final submission metadata** against the Canvas group registration and ensure that the submitted artifact is a single final PDF, as the course requires.
 
 The numerical audit does **not** imply a guaranteed assessment mark. Successful compilation and final layout review remain important for a fully defensible submission.
+
+## Final follow-up audit after authentic screenshots
+
+- Official rubric: Compared Chapter 4 against Parts 1-5, group delta=2, original process screenshots, five electrical metrics, output families, potential/band cutlines, 50/50 contributions and AI-use disclosure.
+- Source integrity: 14 LaTeX files; 38 balanced figure environments; 7 balanced table environments. All literal LaTeX input, image and CSV paths resolve to files in GitHub. No stale missing-screenshot or Pending notes remain in LaTeX.
+- Genuine image evidence: Initial SOI, gate-oxide full stack and zoom original SVisual cropped PNGs are embedded separately from the dimensionally accurate 1D depth-region reconstructions.
+- Part 2 plotting: Both scaled output CSVs now label their columns as scaled_x1000, rather than mA_assuming_A. Every one of the 28 affected PGFPlots column references is verified against its updated CSV header. Numeric data remain unchanged.
+- Numerical data: Inspected Part 2/3/4 metric and output archives, the complete 35-point Part 4 transfer sweeps and 37-point depth profile, and Part 5 lateral/vertical band samples.
+- Text corrections: Removed an obsolete statement that Part 1 screenshots are still missing, harmonized AreaFactor and exported-current language, and explicitly identified DIBL as the first electrostatic relative departure at the tested gate lengths.
+- PDF visual smoke test: Newly inserted two-panel SVisual figure compiled successfully with pdfLaTeX, zero errors. The initial image labels wrapped awkwardly; explicit paragraph breaks fixed the layout and the updated test was rerendered.
+- Limit: This is NOT a successful full current-report PDF compilation. The full Overleaf PDF is not available here, so a complete page-by-page final document review is still needed.
+- Scientific limit: Part 3 strict-current DIBL is unavailable and Part 4 strict-current DIBL exists for only one doping with the chosen 1e-7 current criterion. High-current switching-voltage markers cannot be relabelled as threshold/DIBL.
