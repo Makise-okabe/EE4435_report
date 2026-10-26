@@ -72,7 +72,7 @@ give a \emph{different} matched-current voltage shift, not the same
 subthreshold-threshold DIBL. No extrapolated values are reported.
 
 
-\subsection{Extended-gate diagnostic for the $1000\,^\circ$C anneal}
+\subsection[Extended-gate diagnostic at 1000 C]{Extended-gate diagnostic for the $1000\,^\circ$C anneal}
 The $1000\,^\circ$C entry above denotes the \emph{fabrication
 activation-anneal condition}, not the temperature at which
 SDevice electrical bias sweeps were performed. A separate
@@ -239,11 +239,14 @@ DIBL cannot be extracted from the existing bias sweeps.}
 \end{figure}
 
 \paragraph{High-current drain-bias shift at a common measurable current.}
-A complementary comparison for all anneal temperatures can be
-formed from $\Delta V_{\mathrm{SW}}=
-1000[V_{\mathrm{SW}}(V_{DS}=0.1)-
-V_{\mathrm{SW}}(V_{DS}=1.2)]/1.1$ (mV/V)
-at the common high current $3.5\times10^{-4}$.
+A complementary comparison for all anneal temperatures uses
+the common high-current marker $3.5\times10^{-4}$:
+\[
+\Delta V_{\mathrm{SW}}=
+1000\,\frac{V_{\mathrm{SW}}(V_{DS}=0.1\mathrm{\,V})-
+V_{\mathrm{SW}}(V_{DS}=1.2\mathrm{\,V})}{1.1\mathrm{\,V}}
+\quad(\mathrm{mV/V}).
+\]
 This is a \emph{matched-current operating-voltage shift}
 in a relatively conducting regime; it is explicitly
 \emph{not} the missing subthreshold-threshold DIBL.
