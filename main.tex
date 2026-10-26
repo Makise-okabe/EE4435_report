@@ -51,10 +51,10 @@ The objective is to construct a two-dimensional silicon-on-insulator (SOI) nMOSF
 The baseline process was simulated using the supplied \texttt{SProcess\_baseline.txt} script in Sentaurus Workbench J-2014.09. The project was saved in the university STDB workspace under \texttt{SOI\_nMOSFET}. The corresponding raw TDR and PLX files remain on that server.
 No device metrics are inferred merely from the visible process snapshots.
 
-\paragraph{Two-dimensional current normalization.}
-The supplied SDevice command files specify
-\texttt{Physics \{ AreaFactor=1.0 \}}. In Sentaurus Device's
-two-dimensional convention, an \texttt{AreaFactor} of 1
+\subsubsection*{Two-dimensional current normalization}
+The supplied SDevice command files set
+\texttt{AreaFactor=1.0} in the \texttt{Physics} block.
+In Sentaurus Device's two-dimensional convention, this
 represents an effective out-of-plane width of $1\,\mu$m.
 The terminal current of that simulated slice is therefore
 numerically equivalent to the current per micrometre of width
@@ -246,6 +246,44 @@ the previously saved 10- and 30-nm SDevice operating-point
 structures were reused to complete all four required energy-band
 comparisons without additional device simulations.
 \input{sections/part5_band_analysis}
+
+\section{Conclusions}
+The five-part TCAD study links fabricated SOI geometry and doping
+to simulated terminal currents and electrostatic band profiles.
+Short-channel degradation is especially pronounced for thick
+top silicon: at $L_G=82$~nm, reducing $T_{\mathrm{SI}}$
+from 30 to 10~nm lowers $I_{\mathrm{OFF}}$ by approximately
+435-fold and DIBL from 294.7 to 48.4~mV/V, at a
+5.39\% $I_{\mathrm{ON}}$ cost. These are results for
+the specified operating biases, not a claim that a thinner
+body always improves every performance metric.
+
+The activation-anneal study illustrates why drive current
+alone is an insufficient optimization objective. Increasing
+the anneal condition from $800$ to $1000\,^\circ$C
+increases $I_{\mathrm{ON}}$ by about 62.0\% but raises
+$I_{\mathrm{OFF}}$ by 6.77-fold. The independently
+completed $V_{DS}=1.2$~V, $-1.2\leq V_{GS}\leq1.2$~V
+pilot confirms that the $1000\,^\circ$C structure
+still does not attain the $10^{-7}$ constant-current
+threshold reference. Accordingly its reference-current
+DIBL remains undefined; matched high-current switching
+shifts are identified separately rather than relabelled
+as threshold-based DIBL. The doping sweep shows a
+similarly measurable trade-off: the tested
+$3\times10^{17}$~cm$^{-3}$ case reduces
+$I_{\mathrm{OFF}}$ by 51.58\% for a 10.56\%
+$I_{\mathrm{ON}}$ penalty relative to
+$3\times10^{15}$~cm$^{-3}$.
+
+Longitudinal and vertical band cutlines at
+$V_{GS}=0$, $V_{DS}=1.2$~V complement the terminal
+curves and support the interpretation of improved
+electrostatic control in the thinner body.
+The conclusions are conditional on the nominal
+TCAD physics, process parameters and selected biases.
+Unavailable current-criterion crossings are reported
+as N/A rather than assigned numerical thresholds or DIBL.
 
 \section*{AI-assistance disclosure}
 ChatGPT was used to assist with LaTeX report organization and formatting,

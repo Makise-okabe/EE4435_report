@@ -71,6 +71,61 @@ Replacing the current criterion with an on-state value would
 give a \emph{different} matched-current voltage shift, not the same
 subthreshold-threshold DIBL. No extrapolated values are reported.
 
+
+\subsection[Extended-gate diagnostic at 1000 C]{Extended-gate diagnostic for the $1000\,^\circ$C anneal}
+The $1000\,^\circ$C entry above denotes the \emph{fabrication
+activation-anneal condition}, not the temperature at which
+SDevice electrical bias sweeps were performed. A separate
+high-drain diagnostic tested whether the unextractable
+$V_{\mathrm{TH,CC}}$ was simply an artifact of the original
+$-0.5$~V lower gate-sweep limit. This isolated SDevice run
+reused the existing $1000\,^\circ$C process structure
+(\texttt{n23\_fps.tdr}) and applied $V_{DS}=1.2$~V before
+sweeping $V_{GS}$ from $-1.2$ to $+1.2$~V. The final gate
+bias and all source/process conditions were retained; only
+the starting gate bias and the sweep sampling were changed.
+The command used \texttt{CurrentPlot} with 48 intervals,
+giving 49 gate-sweep samples after excluding the drain ramp.
+The solver completed the curve trace successfully.
+
+\begin{table}[H]\centering\small
+\caption{Measured high-$V_{DS}$ minimum currents for the
+$1000\,^\circ$C anneal structure. These are \emph{two
+different gate-sweep ranges}, not two process conditions.}
+\begin{tabular}{@{}lrrl@{}}\toprule
+Gate sweep (V) & Points & Minimum $|I_D|$ &
+$10^{-7}$ crossing\\\midrule
+$-0.5$ to $1.2$ (original) & 35 &
+$3.32728\times10^{-4}$ & None\\
+$-1.2$ to $1.2$ (pilot) & 49 &
+$2.11370\times10^{-4}$ & None\\
+\bottomrule\end{tabular}
+\end{table}
+The pilot's minimum occurs at $V_{GS}=-1.2$~V.
+Even at this more negative gate bias, the smallest current
+is $2.1137\times10^{3}$ times the predefined
+$10^{-7}$ reference. Thus a genuine constant-current
+high-drain threshold is still unavailable over the
+\emph{tested} extended interval, and the corresponding
+$1000\,^\circ$C DIBL entry remains N/A. This result rules
+out the original $-0.5$~V sweep endpoint as the \emph{sole}
+reason for the missing crossing \emph{within this extension}.
+It does not prove that no crossing exists at any more
+negative bias, nor does it isolate punch-through from other
+short-channel transport effects.
+
+The pilot was run separately in
+\path{EE4435_DIBL_PILOT_1000C} on the university
+simulation server. Its \texttt{n26\_des.plt} output,
+\texttt{pilot\_console.log} and
+\texttt{check\_gate.log} are separate from the archived
+five-temperature sweeps. The extracted result and provenance
+are recorded in
+\path{data/part3_1000c_extended_gate_diagnostic.csv};
+the full pilot curve itself is not represented by the
+two summary points in the table.
+
+
 \paragraph{Threshold criterion and complete switching-voltage comparison.}
 The constant-current $10^{-7}$ threshold values below are shown
 only where the sampled gate sweep actually crosses that criterion.
@@ -184,11 +239,14 @@ DIBL cannot be extracted from the existing bias sweeps.}
 \end{figure}
 
 \paragraph{High-current drain-bias shift at a common measurable current.}
-A complementary comparison for all anneal temperatures can be
-formed from $\Delta V_{\mathrm{SW}}=
-1000[V_{\mathrm{SW}}(V_{DS}=0.1)-
-V_{\mathrm{SW}}(V_{DS}=1.2)]/1.1$ (mV/V)
-at the common high current $3.5\times10^{-4}$.
+A complementary comparison for all anneal temperatures uses
+the common high-current marker $3.5\times10^{-4}$:
+\[
+\Delta V_{\mathrm{SW}}=
+1000\,\frac{V_{\mathrm{SW}}(V_{DS}=0.1\mathrm{\,V})-
+V_{\mathrm{SW}}(V_{DS}=1.2\mathrm{\,V})}{1.1\mathrm{\,V}}
+\quad(\mathrm{mV/V}).
+\]
 This is a \emph{matched-current operating-voltage shift}
 in a relatively conducting regime; it is explicitly
 \emph{not} the missing subthreshold-threshold DIBL.
@@ -242,8 +300,8 @@ process structures, without rerunning SProcess. Each family contains
 $V_{GS}=0.0,0.2,0.4,0.6,0.8,1.0,$ and $1.2$ V with
 $0\leq V_{DS}\leq1.2$ V. The 31-point per-curve results were exported
 from the original Sentaurus \texttt{.plt} files and retained in
-\texttt{data/part3\_idvd\_T800.csv} and
-\texttt{data/part3\_idvd\_T1000.csv}. All plots use the same horizontal
+\path{data/part3_idvd_T800.csv} and
+\path{data/part3_idvd_T1000.csv}. All plots use the same horizontal
 and vertical ranges to permit direct visual comparison. The ordinate is
 the original simulator-exported current, with width normalization still
 unverified.
@@ -293,7 +351,7 @@ legend columns=4,
 
 \end{axis}
 \end{tikzpicture}
-\caption{Seven measured $I_D$--$V_D$ traces for the 800$ $^\circ$C anneal.
+\caption{Seven measured $I_D$--$V_D$ traces for the 800$^\circ$C anneal.
 Gate bias ranges from $0$ to $1.2$ V in $0.2$-V steps.
 Both temperature figures use identical axis ranges for comparison.}
 \label{fig:part3_idvd_800}
@@ -344,7 +402,7 @@ legend columns=4,
 
 \end{axis}
 \end{tikzpicture}
-\caption{Seven measured $I_D$--$V_D$ traces for the 1000$ $^\circ$C anneal.
+\caption{Seven measured $I_D$--$V_D$ traces for the 1000$^\circ$C anneal.
 Gate bias ranges from $0$ to $1.2$ V in $0.2$-V steps.
 Both temperature figures use identical axis ranges for comparison.}
 \label{fig:part3_idvd_1000}
@@ -376,7 +434,7 @@ This is a source-side vertical arsenic-profile comparison; it does
 into the central channel.
 
 The data archive
-\texttt{data/part3\_arsenic\_vertical\_source\_800\_1000.csv}
+\path{data/part3_arsenic_vertical_source_800_1000.csv}
 retains both \texttt{AsTotal} and \texttt{AsActive}
 (concentrations in cm$^{-3}$), with the common cutline mesh for the
 two structures. Non-numerical Sentaurus Visual metadata rows were
