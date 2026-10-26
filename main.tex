@@ -48,7 +48,7 @@ silicon bodies under the specified off-gate, high-drain bias.
 \section{Objective and methodology}
 The objective is to construct a two-dimensional silicon-on-insulator (SOI) nMOSFET in Sentaurus Process (SProcess), characterize it in Sentaurus Device (SDevice), and investigate gate length, top-silicon thickness, activation annealing and channel doping. The required electrical quantities are threshold voltage $V_{\mathrm{TH}}$, subthreshold swing (SS), on-current $I_{\mathrm{ON}}$, off-current $I_{\mathrm{OFF}}$, and drain-induced barrier lowering (DIBL). The assignment additionally requires longitudinal and vertical energy-band diagrams.
 
-The baseline process was simulated using the supplied \texttt{SProcess\_baseline.txt} script in Sentaurus Workbench J-2014.09. The project was saved at \texttt{/class3/ay2627/a277012m/STDB/SOI\_nMOSFET} on the university server. The corresponding raw TDR and PLX files remain on that server.
+The baseline process was simulated using the supplied \texttt{SProcess\_baseline.txt} script in Sentaurus Workbench J-2014.09. The project was saved in the university STDB workspace under \texttt{SOI\_nMOSFET}. The corresponding raw TDR and PLX files remain on that server.
 No device metrics are inferred merely from the visible process snapshots.
 
 \paragraph{Two-dimensional current normalization.}
@@ -195,10 +195,8 @@ SS fit $R^2$ & $0.999999892$ \\
 \end{table}
 The filename \texttt{Ig\_Vg\_CSV.csv} is misleading: the export
 header identifies the measured ordinate as drain
-\texttt{TotalCurrent}, not gate current. The raw 45-row file
-is archived at \texttt{data/Ig\_Vg\_CSV\_original.csv} and the
-cleaned 34-point gate sweep at
-\texttt{data/idvg\_vds\_0p1\_sweep.csv}.
+\texttt{TotalCurrent}, not gate current. The raw 45-row export and the cleaned 34-point gate sweep
+are archived in the repository's \texttt{data/} directory.
 Eleven repeated $V_{GS}=-0.5$~V values from the initial
 drain-voltage ramp were removed before plotting and fitting.
 These initial $V_{DS}=0.1$~V data are retained as an
