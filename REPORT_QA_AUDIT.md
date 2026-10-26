@@ -1,5 +1,14 @@
 # EE4435 report: final technical and rubric audit
 
+## 27 October 2026 — isolated extended-gate audit and report revision
+
+- **User-confirmed pilot evidence:** A separate SDevice run reused the 1000 °C *annealed* Part 3 structure, ramped to VDS = 1.2 V, then swept VGS from -1.2 to +1.2 V, with 48 `CurrentPlot` intervals and 49 sweep points. SDevice reported `Curve trace finished`. Independent `check_gate.log` output reports minimum |ID| = **2.11370000e-4** at VGS = **-1.200000 V** and **no crossing** of the fixed 1e-7 reference. The current is **2,113.7 ×** the criterion.
+- **Original versus pilot:** The original 1000 °C high-drain sweep covered -0.5 to +1.2 V (35 points), with minimum 3.32728e-4. Neither sweep meets the 1e-7 criterion. The extended check strengthens the explanation for **N/A** DIBL at this anneal condition, but cannot establish a universal non-crossing for all negative gate voltages or independently diagnose punch-through.
+- **Provenance:** Original five-temperature CSVs and code were left intact. The isolated pilot outputs `n26_des.plt`, `pilot_console.log`, `check_gate.log` and input deck remain on the NUS workstation in `EE4435_DIBL_PILOT_1000C`; the repository contains only their **reported numerical summary** in `data/part3_1000c_extended_gate_diagnostic.csv`. The electrical run is not claimed to have been conducted at 1000 °C (that number labels the fabrication anneal).
+- **Report edits:** Part 3 now contains the two-range comparison and extraction limitation; the main report includes a numerical cross-part conclusion, preserving honest N/A values and distinguishing measured switching markers from constant-current DIBL.
+- **Remaining grade risk:** The Chapter 4 requirement explicitly asks for DIBL against anneal temperature, but its strict-current numerical extraction is unavailable for all five cases. This cannot be fixed editorially. Parts 3 and 4 show defensible separate high-current bias shifts and explicit missing-data explanations. A final **full PDF compilation and visual proofread** is still required after synchronizing the branch with Overleaf; static/source-level inspection is not sufficient to certify page layout.
+
+
 This file is a quality-control record **outside** the submitted LaTeX report. Its purpose is to distinguish verified evidence from genuine remaining submission risks. It is not an additional assignment section.
 
 ## Verified numerical and source checks
