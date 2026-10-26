@@ -1,0 +1,27 @@
+name: Build EE4435 report PDF
+
+on:
+  push:
+    branches: [main, "report/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out report source and assets
+        uses: actions/checkout@v4
+      - name: Compile main.tex with pdfLaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          args: "-pdf -interaction=nonstopmode -halt-on-error -file-line-error"
+      - name: Publish compiled PDF for visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: EE4435_report_pdf
+          path: main.pdf
+          if-no-files-found: error
