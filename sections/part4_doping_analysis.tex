@@ -177,6 +177,10 @@ table[col sep=comma,x=NCH_cm3,y=DrainShift_mV_per_V]
 \addplot+[only marks,mark=*,mark size=3pt]
 coordinates {(3e18,93.57225)};
 \addlegendentry{Extractable strict-current DIBL}
+% These labels are unavailable measurements, not plotted zero values.
+\node[font=\scriptsize,anchor=south] at (axis cs:3e15,65) {N/A};
+\node[font=\scriptsize,anchor=south] at (axis cs:3e16,65) {N/A};
+\node[font=\scriptsize,anchor=south] at (axis cs:3e17,65) {N/A};
 \end{semilogxaxis}
 \end{tikzpicture}
 \caption{A complete \emph{high-current gate-voltage shift}
