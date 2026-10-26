@@ -204,6 +204,10 @@ grid=both]
 \addplot+[mark=square*,thick]
 table[col sep=comma,x=TANNEAL_C,y=DrainShift_mV_per_V]
 {data/part3_common_current_switching.csv};
+% Explicitly indicate that this high-current plot is not a DIBL dataset.
+\node[font=\scriptsize,align=center,anchor=north,fill=white,
+      fill opacity=.85,text opacity=1]
+  at (axis cs:885,940) {Strict $10^{-7}$-criterion DIBL: N/A\\at all five temperatures};
 \end{axis}
 \end{tikzpicture}
 \caption{Measured five-temperature drain-bias-dependent
