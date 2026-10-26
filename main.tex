@@ -52,9 +52,9 @@ The baseline process was simulated using the supplied \texttt{SProcess\_baseline
 No device metrics are inferred merely from the visible process snapshots.
 
 \paragraph{Two-dimensional current normalization.}
-The supplied SDevice command files specify
-\texttt{Physics \{ AreaFactor=1.0 \}}. In Sentaurus Device's
-two-dimensional convention, an \texttt{AreaFactor} of 1
+The supplied SDevice command files set
+\texttt{AreaFactor=1.0} in the \texttt{Physics} block.
+In Sentaurus Device's two-dimensional convention, this
 represents an effective out-of-plane width of $1\,\mu$m.
 The terminal current of that simulated slice is therefore
 numerically equivalent to the current per micrometre of width
