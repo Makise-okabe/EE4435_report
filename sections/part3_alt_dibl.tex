@@ -1,0 +1,137 @@
+\subsection[Secondary Part 3 DIBL extraction]{Secondary Part 3 extraction: ELR/ESR sensitivity}
+A second extraction was tested on the \emph{original} ten
+$800$--$1000\,^\circ$C transfer sweeps to assess whether
+drain-bias sensitivity can be compared when the predeclared
+$10^{-7}$ constant-current threshold is not crossed.
+The procedure is the same model-dependent ELR/ESR audit
+described in Part~4. This additional analysis does
+\emph{not} replace the constant-current results in
+the main Part~3 metric table.
+
+\paragraph{Extraction and provenance.}
+The archived pairs use $V_{DS}=0.1/1.2$~V:
+nodes $n3/n9$ (800$^\circ$C), $n13/n14$ (850$^\circ$C),
+$n17/n18$ (900$^\circ$C), $n21/n22$ (950$^\circ$C),
+and $n25/n26$ (1000$^\circ$C).
+Each pair was verified to use the same SProcess
+structure. A local, read-only Python extraction
+parsed the original SDevice \texttt{.plt} curves.
+For the low-drain bias, a five-point maximum-slope fit
+to $|I_D|=aV_{GS}+b$ gives
+$V_{\mathrm{TH,ELR}}=-b/a-0.05$~V.
+For the high-drain bias, a separate maximum-slope fit
+to $\sqrt{|I_D|}=cV_{GS}+d$ gives
+$V_{\mathrm{TH,ESR}}=-d/c$. The reported shift is
+\[
+D_{\mathrm{ELR/ESR,app}}
+=1000\,\frac{V_{\mathrm{TH,ELR}}(0.1\mathrm{\,V})-
+V_{\mathrm{TH,ESR}}(1.2\mathrm{\,V})}{1.1\mathrm{\,V}}
+\quad(\mathrm{mV/V}).
+\]
+The extraction was repeated with 3-, 5-, 7- and
+9-point windows. These are \emph{different} strong-inversion
+transport approximations used at the two drain biases:
+a local straight-line fit does not demonstrate a
+physically unique inversion threshold. Standard
+threshold-extraction reviews recognize both techniques
+and their potential differences
+(A.~Ortiz-Conde \emph{et al.},
+\emph{Microelectronics Reliability} \textbf{42},
+583--596, 2002;
+\href{https://doi.org/10.1016/S0026-2714(02)00027-6}{doi:10.1016/S0026-2714(02)00027-6}).
+
+\begin{table}[H]\centering\small
+\caption{Alternative apparent Part 3 DIBL from ELR/ESR.
+Values are transcribed at the precision printed by the
+successful NUS server extraction on 27 October 2026.
+Neither fitted intercept is asserted to be a
+constant-current threshold measurement.}
+\begin{tabular}{@{}rrrrr@{}}\toprule
+Anneal & $V_{\mathrm{TH,ELR}}$ &
+$V_{\mathrm{TH,ESR}}$ & $D_{\mathrm{app}}$ &
+Window range\\
+($^\circ$C) & (V) & (V) & (mV/V) & (mV/V)\\\midrule
+800  & 0.1913 & $-0.1929$ & 349.2 & 346.7--349.9\\
+850  & 0.1876 & $-0.2784$ & 423.7 & 418.1--424.5\\
+900  & 0.1937 & $-0.2997$ & 448.5 & 446.0--449.1\\
+950  & 0.1961 & $-0.3477$ & 494.4 & 494.3--494.5\\
+1000 & 0.1280 & $-0.9417$ & 972.5 & 970.5--973.1\\
+\bottomrule\end{tabular}
+\end{table}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=.91\linewidth,height=6.6cm,
+xlabel={Activation anneal ($^\circ$C)},
+ylabel={Drain-bias-dependent gate shift (mV/V)},
+xmin=780,xmax=1020,ymin=0,ymax=1100,
+xtick={800,850,900,950,1000},
+grid=both,
+legend style={font=\scriptsize,at={(.02,.98)},anchor=north west},
+legend cell align=left
+]
+\addplot+[black,mark=*,solid,thick]
+table[col sep=comma,x=TANNEAL_C,y=DIBL_ELR_ESR_app_mV_perV]
+{data/part3_elr_esr_terminal_summary_20261027.csv};
+\addlegendentry{Apparent ELR/ESR shift}
+\addplot+[black,mark=square*,dashed,thick]
+table[col sep=comma,x=TANNEAL_C,y=DrainShift_mV_per_V]
+{data/part3_common_current_switching.csv};
+\addlegendentry{Measured high-current $V_{\mathrm{SW}}$ shift}
+\end{axis}
+\end{tikzpicture}
+\caption{Two \emph{method-dependent}, non-equivalent
+drain-bias shift definitions from the same temperature series.
+The solid curve is a mixed ELR/ESR threshold-model extrapolation;
+the dashed curve uses the common measured
+$|I_D|=3.5\times10^{-4}$ switching current.
+Neither curve is the unavailable $10^{-7}$-criterion DIBL.}
+\label{fig:part3_secondary_drain_shifts}
+\end{figure}
+
+\paragraph{Cross-checks and interpretation.}
+The extracted high-drain ON/OFF currents reproduce the
+Part~3 metric-table entries at all five temperatures,
+providing an independent check that the node pairs
+and bias settings were matched correctly.
+All reported five-point $R^2$ values are at least
+0.99946, and the 3--9-point window ranges are narrow.
+The apparent ELR/ESR shift rises from 349.2 to
+972.5~mV/V across the tested anneal conditions;
+the increase is particularly large at 1000$^\circ$C.
+
+The \emph{other} measured high-current switching
+marker tells a more qualified story: it changes from
+389.0 to approximately 275.1~mV/V between
+800$^\circ$C and 950$^\circ$C, rather than rising
+monotonically, before increasing to 895.1~mV/V
+at 1000$^\circ$C. Thus, the trend \emph{depends
+on the selected extraction definition} over the
+800--950$^\circ$C cases, despite both indicators
+showing a particularly strong high-drain sensitivity
+for the 1000$^\circ$C structure.
+In that case the ESR intercept of $-0.9417$~V
+is outside the \emph{original} measured
+$-0.5$ to $1.2$~V gate interval; it is a model
+extrapolate, not an observed current threshold.
+Moreover, the separately extended $-1.2$ to
+$1.2$~V pilot still did not reach the
+original $10^{-7}$ criterion.
+
+The underlying ten \texttt{.plt} source curves and
+full consolidated CSV are preserved in the university
+Sentaurus workspace, not in this GitHub archive.
+Only the precision printed in the provided terminal
+output has been transcribed to
+\path{data/part3_elr_esr_terminal_summary_20261027.csv}.
+Reproducibility scripts
+\path{tools/sentaurus_plt_to_idvg.py}
+and \path{tools/gm_dibl_exploratory.py}
+are included in the repository, but an
+independent raw-curve audit requires the ten
+original university-server \texttt{.plt} files.
+Therefore the ELR/ESR results are
+\emph{supplementary numerical estimates}, not
+validated subthreshold barrier-lowering magnitudes,
+and the strict-current DIBL entries remain N/A.

@@ -35,6 +35,35 @@ jobs:
               assert float(actual[key]["high_fit_R2"]) > 0.999
           print("PASS: Part 4 ELR/ESR numerical cross-check and fitted-window audit")
           PY
+      - name: Validate Part 3 reported ELR/ESR values against original current metrics
+        run: |
+          python3 - <<'PY'
+          import csv
+          def records(path, key):
+              with open(path, newline="") as f:
+                  return {int(float(r[key])): r for r in csv.DictReader(f)}
+          alt = records("data/part3_elr_esr_terminal_summary_20261027.csv","TANNEAL_C")
+          original = records("data/part3_temperature_metrics.csv","TANNEAL_C")
+          marker = records("data/part3_common_current_switching.csv","TANNEAL_C")
+          assert sorted(alt) == sorted(original) == sorted(marker) == [800,850,900,950,1000]
+          for temp, row in alt.items():
+              old = original[temp]
+              for a,b in (("ION_high_exported","ION_exported"),
+                          ("IOFF_high_exported","IOFF_exported")):
+                  v1,v2=float(row[a]),float(old[b])
+                  assert abs(v1-v2) <= 1e-5 * max(abs(v1),abs(v2)), (temp,a,v1,v2)
+              lo,hi = float(row["VTH_ELR_0p1_V"]),float(row["VTH_ESR_1p2_V"])
+              apparent = float(row["DIBL_ELR_ESR_app_mV_perV"])
+              assert abs(apparent-1000*(lo-hi)/1.1) < 0.1, temp
+              assert float(row["DIBL_window_min_mV_perV"]) <= apparent <= float(row["DIBL_window_max_mV_perV"])
+              assert float(row["R2_low_5pt"]) > 0.999
+              assert float(row["R2_high_5pt"]) > 0.999
+          # The method discrepancy is expected, not an accidental unit conversion.
+          assert float(alt[950]["DIBL_ELR_ESR_app_mV_perV"]) > float(alt[800]["DIBL_ELR_ESR_app_mV_perV"])
+          assert float(marker[950]["DrainShift_mV_per_V"]) < float(marker[800]["DrainShift_mV_per_V"])
+          print("PASS: Part 3 terminal summary internally consistent and ION/IOFF match archived metrics")
+          print("LIMIT: this check does not re-extract the NUS-only original PLT curves")
+          PY
       - name: Compile main.tex with pdfLaTeX
         uses: xu-cheng/latex-action@v3
         with:
