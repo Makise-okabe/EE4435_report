@@ -13,6 +13,14 @@ This repository contains the LaTeX report for EE4435. Compile `main.tex` using *
 **New Part 3 diagnostic (1000 °C anneal, high drain).** One isolated SDevice test reused the existing annealed structure and swept the gate from -1.2 to +1.2 V at VDS = 1.2 V. The successful 49-point sweep reached a minimum |ID| of 2.11370e-4 at VGS = -1.2 V, still 2,113.7 times above the predeclared 1e-7 constant-current threshold. It therefore **does not** recover a threshold or DIBL value. See `data/part3_1000c_extended_gate_diagnostic.csv` and the new Part 3 subsection. The original Part 3 and 4 results were not overwritten; the full diagnostic PLT/deck/log remain in the university server's isolated `EE4435_DIBL_PILOT_1000C` workspace and have **not** been committed to this repository. The CSV holds summary values only. The temperature denotes process annealing, not electrical measurement temperature.
 
 ## Available figure assets
+## Supplemental ELR/ESR DIBL analysis
+
+The Part 4 LaTeX report includes an **explicitly secondary, model-dependent** transconductance-based linear/saturation extrapolation audit, with reproducible output at \`data/part4_elr_esr_sensitivity.csv\` and code in \`tools/gm_dibl_exploratory.py\`. All four doping cases yield extrapolated apparent drain shifts; they do **not** replace the original strict-current N/A cases. The existing raw Part 4 transfer curves remain unchanged. The alternative fit results depend on assumed low-/high-drain current models, and the highest-doping example disagrees with the primary constant-current DIBL.
+
+To repeat: \`python3 tools/gm_dibl_exploratory.py\`
+
+The five-temperature Part 3 curves are **not** present in this repository in full; the original Sentaurus PLT archives must first be matched to their process temperature and drain bias. \`tools/sentaurus_plt_to_idvg.py --help\` provides a read-only converter to a consolidated CSV that can then be analyzed by the same extrapolation script. The program never modifies the source PLTs.
+
 
 The repository already contains actual Sentaurus images:
 `figures/02_extension.png`, `03_spacer.png`, `04_annealed.png`, `05_final.png`, and `part2_potential_comparison.png`. They are included directly by LaTeX. The original 1D TDR exports for the initial SOI stack and gate oxidation were converted to authentic, scale-accurate vector material-depth diagrams included in the report: `sections/part1_initial_soi_profile.tex` and `sections/part1_gateoxide_profile.tex`. Their measured boundaries are archived in `data/part1_early_1d_region_boundaries.csv`. The original SVisual evidence is additionally included as three cropped screenshots `figures/00_initial_soi_svisual.png`, `figures/01_gateoxide_full_svisual.png`, and `figures/01_gateoxide_zoom_svisual.png`, with correct 1D-axis captions. The reconstructed material-depth diagrams are distinct from the screenshots.

@@ -14,6 +14,27 @@ jobs:
     steps:
       - name: Check out report source and assets
         uses: actions/checkout@v4
+      - name: Verify exploratory extraction against archived results
+        run: |
+          python3 tools/gm_dibl_exploratory.py --input data/part4_idvg_all.csv --output /tmp/part4_gm_result.csv
+          python3 - <<'PY'
+          import csv, math
+          def read(path):
+              with open(path, newline="") as f:
+                  return {r["case"]: r for r in csv.DictReader(f)}
+          expected = read("data/part4_elr_esr_sensitivity.csv")
+          actual = read("/tmp/part4_gm_result.csv")
+          assert set(expected) == set(actual) == {"3e15", "3e16", "3e17", "3e18"}
+          columns = ["ELR_low_VTH_V", "ESR_high_VTH_V",
+              *[f"DIBL_apparent_w{k}_mV_per_V" for k in (3,5,7,9)]]
+          for key in expected:
+              assert actual[key]["fit_peak_at_search_boundary"] == "False", key
+              for field in columns:
+                  assert abs(float(actual[key][field])-float(expected[key][field])) < 0.00001, (key,field)
+              assert float(actual[key]["low_fit_R2"]) > 0.999
+              assert float(actual[key]["high_fit_R2"]) > 0.999
+          print("PASS: Part 4 ELR/ESR numerical cross-check and fitted-window audit")
+          PY
       - name: Compile main.tex with pdfLaTeX
         uses: xu-cheng/latex-action@v3
         with:
