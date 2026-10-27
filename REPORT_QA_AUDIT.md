@@ -1,5 +1,14 @@
 # EE4435 report: final technical and rubric audit
 
+## 27 October 2026 — alternative Part 4 threshold-method sensitivity audit
+
+- Explored a **mixed-region ELR/ESR extrapolation method** on all eight *archived* Part 4 Id-Vg traces, not on invented or rerun data. At VDS=0.1 V, the local maximum-slope linear Id extrapolate is corrected by -VDS/2. At VDS=1.2 V, the local maximum-slope sqrt(|Id|) extrapolate assumes a saturation-type model. Apparent DIBL uses the extrapolated threshold difference divided by 1.1 V.
+- Five-point results by NCH=3e15, 3e16, 3e17, 3e18 cm^-3: **497.529, 487.356, 414.814, 137.541 mV/V**, respectively. The 3-, 5-, 7-, 9-point fit-sensitivity ranges are **497.529–497.795**, **486.983–487.456**, **414.628–417.925** and **136.099–138.903 mV/V**. Full reproducibility code in \`tools/gm_dibl_exploratory.py\`, source \`data/part4_idvg_all.csv\`, output \`data/part4_elr_esr_sensitivity.csv\`.
+- All 5-point local fit R² exceed 0.9997. However, local regression quality does **not** validate a long-channel linear-region or square-law saturation physical model for leaky 50-nm MOSFETs. A large method-dependence remains: original strict-current DIBL at 3e18 is **93.57 mV/V** versus **137.54 mV/V** from ELR/ESR. These remain **secondary apparent threshold shifts**, not a replacement for the original 1e-7 criterion N/A metrics.
+- **Part 3 remains unresolved by ELR/ESR** because GitHub archives its five-temperature metric summary but not all ten full Id-Vg transfer traces. A read-only converter \`tools/sentaurus_plt_to_idvg.py\` is supplied to reconstruct the data from the NUS Sentaurus \`.plt\` archives once each low/high drain file is identified. The diagnostic high-drain-only pilot cannot supply those ten curves.
+- The Chapter 4 rubric does not prescribe the 1e-7 criterion, but a numerically complete alternative is not automatically a physically unique DIBL measurement. Do not silently change the primary extraction protocol, invent threshold crossings, or omit the model assumptions.
+
+
 ## 27 October 2026 — isolated extended-gate audit and report revision
 
 - **User-confirmed pilot evidence:** A separate SDevice run reused the 1000 °C *annealed* Part 3 structure, ramped to VDS = 1.2 V, then swept VGS from -1.2 to +1.2 V, with 48 `CurrentPlot` intervals and 49 sweep points. SDevice reported `Curve trace finished`. Independent `check_gate.log` output reports minimum |ID| = **2.11370000e-4** at VGS = **-1.200000 V** and **no crossing** of the fixed 1e-7 reference. The current is **2,113.7 ×** the criterion.
