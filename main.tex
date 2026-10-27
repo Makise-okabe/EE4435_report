@@ -228,6 +228,7 @@ simulator-exported units without an unverified width conversion.
 \section{Part 3: Activation anneal temperature}
 At $L_G=50$ nm, $T_{\mathrm{SI}}=30$ nm and $N_{\mathrm{CH}}=10^{16}$ cm$^{-3}$, the specified anneal temperatures are $800$, $850$, $900$, $950$ and $1000\,^\circ$C. All five SProcess structures and ten SDevice transfer sweeps have completed. The quantitative analysis, temperature plots, and documented unavailable DIBL values are given below.
 \input{sections/part3_transfer_analysis}
+\input{sections/part3_alt_dibl}
 The two required extreme-temperature comparisons are included: seven measured $I_D$--$V_D$ traces at each temperature and a source-side vertical arsenic-profile comparison. The exact cutline geometry and the unavailability of reference-current DIBL are documented rather than assumed.
 
 \section{Part 4: Channel doping}
@@ -270,7 +271,15 @@ still does not attain the $10^{-7}$ constant-current
 threshold reference. Accordingly its reference-current
 DIBL remains undefined; matched high-current switching
 shifts are identified separately rather than relabelled
-as threshold-based DIBL. The doping sweep shows a
+as threshold-based DIBL.
+A supplementary ELR/ESR extraction gives apparent
+drain-bias shifts of 349.2, 423.7, 448.5,
+494.4 and 972.5~mV/V for the five anneals.
+Although numerically stable across local fit windows,
+these extrapolates depend on strong-inversion current
+models: the original high-current switching marker
+even shows a different intermediate-temperature trend.
+They are not substituted for the missing strict-current DIBL. The doping sweep shows a
 similarly measurable trade-off: the tested
 $3\times10^{17}$~cm$^{-3}$ case reduces
 $I_{\mathrm{OFF}}$ by 51.58\% for a 10.56\%
