@@ -6,11 +6,12 @@
 \usepackage{caption}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
-\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\hypersetup{hidelinks}
 
 \newcommand{\evidence}[2]{%
  \begin{figure}[H]\centering
  \includegraphics[width=.83\linewidth]{figures/#1.png}
+ \captionsetup{justification=raggedright,singlelinecheck=false}%
  \caption{#2}\end{figure}}
 \title{\textbf{EE4435 Modern Transistors and Memory Devices}\\Sentaurus TCAD: Fabrication and Characterization of an SOI nMOSFET}
 \author{Du Yanzhang \and Fang Tianchi}
