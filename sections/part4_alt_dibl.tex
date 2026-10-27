@@ -1,0 +1,95 @@
+\subsection{Secondary threshold-method sensitivity: ELR/ESR}
+The primary $10^{-7}$ constant-current threshold and DIBL results
+above are retained unchanged. As an \emph{exploratory, model-dependent
+alternative}, we extracted an apparent threshold from the measured
+transfer-curve shapes using the linear extrapolation (ELR) and
+saturation extrapolation (ESR) conventions.
+
+At $V_{DS}=0.1$~V, a local straight-line fit
+$I_D \simeq aV_{GS}+b$ was selected at the maximum
+positive slope of the fitted current curve. The conventional
+linear-region correction gives
+\[
+V_{\mathrm{TH,ELR}}=-\frac{b}{a}-\frac{0.1}{2}.
+\]
+At $V_{DS}=1.2$~V, an independently selected local fit to
+$\sqrt{|I_D|}\simeq cV_{GS}+d$ gives the
+\emph{saturation-model extrapolate}
+\[
+V_{\mathrm{TH,ESR}}=-\frac{d}{c},\qquad
+\mathrm{DIBL}_{\mathrm{ELR/ESR,app}}=
+1000\,\frac{V_{\mathrm{TH,ELR}}-V_{\mathrm{TH,ESR}}}
+{1.2-0.1}\quad(\mathrm{mV/V}).
+\]
+The fits use five neighbouring measured gate-bias points
+($\Delta V_{GS}=0.05$~V) and maximize the fitted slope
+over all fully contained five-point windows. No curve is
+extended or simulated again; a tangent intercept may lie
+outside the measured gate interval. We also vary the fitting
+window over 3, 5, 7 and 9 points to assess numerical stability.
+The raw source is \path{data/part4_idvg_all.csv};
+the generated values are in
+\path{data/part4_elr_esr_sensitivity.csv}, produced by
+\path{tools/gm_dibl_exploratory.py}.
+
+\begin{table}[H]\centering\small
+\caption{Alternative, \emph{apparent} thresholds and DIBL for
+the four Part 4 samples. These are fit extrapolations under
+different low-/high-drain transport approximations, not
+direct constant-current threshold crossings.}
+\begin{tabular}{@{}rrrrr@{}}\toprule
+$N_{\mathrm{CH}}$ (cm$^{-3}$) &
+$V_{\mathrm{TH,ELR}}$ (V) &
+$V_{\mathrm{TH,ESR}}$ (V) &
+Apparent DIBL & 3--9-point range\\
+&&& (mV/V) & (mV/V)\\\midrule
+$3\times10^{15}$ & 0.1899 & $-0.3574$ & 497.5 & 497.5--497.8\\
+$3\times10^{16}$ & 0.2065 & $-0.3296$ & 487.4 & 487.0--487.5\\
+$3\times10^{17}$ & 0.2741 & $-0.1822$ & 414.8 & 414.6--417.9\\
+$3\times10^{18}$ & 0.6279 & 0.4766 & 137.5 & 136.1--138.9\\
+\bottomrule\end{tabular}
+\end{table}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{semilogxaxis}[
+width=.90\linewidth,height=6.3cm,
+xlabel={$N_{\mathrm{CH}}$ (cm$^{-3}$)},
+ylabel={Extracted drain-bias shift (mV/V)},
+xmin=1.5e15,xmax=5e18,ymin=0,ymax=550,
+xtick={3e15,3e16,3e17,3e18},
+xticklabels={$3\times10^{15}$,$3\times10^{16}$,$3\times10^{17}$,$3\times10^{18}$},
+grid=both,
+legend style={font=\scriptsize,at={(.03,.04)},anchor=south west}
+]
+\addplot+[mark=square*,thick]
+table[col sep=comma,x=case,y=DIBL_apparent_w5_mV_per_V]
+{data/part4_elr_esr_sensitivity.csv};
+\addlegendentry{Apparent ELR/ESR shift}
+\addplot+[only marks,mark=*,mark size=2.8pt]
+coordinates {(3e18,93.57225)};
+\addlegendentry{Original $10^{-7}$ criterion}
+\end{semilogxaxis}
+\end{tikzpicture}
+\caption{Doping dependence of the alternative
+model-derived gate-voltage shift. The isolated strict-current
+DIBL value is plotted for comparison; the two methods
+have different definitions and must not be pooled.}
+\end{figure}
+
+Both the high-current switching marker and the ELR/ESR
+calculation independently suggest that the low-doping
+devices are strongly drain-bias sensitive. The ELR/ESR
+results are stable to the fitted window length; all
+five-point local regressions have $R^2>0.9997$.
+However, high local linearity is \emph{not} proof that
+a short-channel, high-leakage structure obeys the
+ideal linear-region or square-law saturation expressions.
+Indeed the $3\times10^{18}$~cm$^{-3}$ device gives
+137.5~mV/V by ELR/ESR but 93.57~mV/V by the
+original constant-current criterion. Consequently
+these numbers are reported only as
+\emph{apparent, extraction-method-dependent shifts};
+they do not retroactively establish the missing strict-current
+thresholds and cannot by themselves prove quantitative
+drain-induced source-barrier lowering.
